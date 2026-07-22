@@ -7,25 +7,53 @@ import Lenis from '@studio-freight/lenis';
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+// GSAP Animations setup
+gsap.registerPlugin(ScrollTrigger);
+
 // Lenis Smooth Scrolling (Only if reduced motion is disabled)
 let lenis = null;
 if (!prefersReducedMotion) {
     lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+        duration: 1.0,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        smoothTouch: false, // Maintain native smooth touch momentum on mobile devices
+        touchMultiplier: 1.5
     });
 
-    function raf(time) {
+    // Synchronize Lenis scroll position with GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
+
+    // Drive Lenis RAF via GSAP ticker for synchronous smooth animation frame updates
+    gsap.ticker.add((time) => {
         if (lenis) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
+            lenis.raf(time * 1000);
         }
-    }
-    requestAnimationFrame(raf);
+    });
+
+    gsap.ticker.lagSmoothing(0);
 }
 
-// GSAP Animations setup
-gsap.registerPlugin(ScrollTrigger);
+// Smooth Scroll for Anchor Navigation Links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+        const href = anchor.getAttribute('href');
+        if (href && href !== '#') {
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                if (lenis) {
+                    lenis.scrollTo(target, { offset: -20, duration: 1.0 });
+                } else {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+    });
+});
 
 if (!prefersReducedMotion) {
     // Fade up elements animation
@@ -111,6 +139,7 @@ function openModal() {
     modalContent.classList.remove('translate-y-10');
     modalContent.classList.add('translate-y-0');
     document.body.style.overflow = 'hidden';
+    if (lenis) lenis.stop();
 
     // Focus initial input
     const firstInput = modal.querySelector('input[name="name"]');
@@ -126,6 +155,7 @@ function closeModal() {
     modalContent.classList.remove('translate-y-0');
     modalContent.classList.add('translate-y-10');
     document.body.style.overflow = '';
+    if (lenis) lenis.start();
 
     if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
         lastFocusedElement.focus();
@@ -173,6 +203,7 @@ function toggleMobileMenu() {
             hamburgerLine2.classList.add('-translate-y-[3px]', '-rotate-45');
         }
         document.body.style.overflow = 'hidden';
+        if (lenis) lenis.stop();
     } else {
         mobileMenu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-100%]');
         mobileMenu.classList.remove('translate-y-0');
@@ -181,6 +212,7 @@ function toggleMobileMenu() {
             hamburgerLine2.classList.remove('-translate-y-[3px]', '-rotate-45');
         }
         document.body.style.overflow = '';
+        if (lenis) lenis.start();
     }
 }
 
@@ -230,3 +262,4 @@ if (form) {
             });
     });
 }
+
