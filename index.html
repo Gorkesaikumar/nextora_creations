@@ -1,21 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GKX0B0BLG0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Configured for privacy (anonymize_ip) and standard page tracking
+      gtag('config', 'G-GKX0B0BLG0', { 'anonymize_ip': true });
+    </script>
+
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     
     <!-- SEO Meta Tags -->
     <title>Nextora Creations | We Build Systems For Your Business</title>
     <meta name="description" content="Nextora Creations builds enterprise software, AI systems, SaaS products, ERP platforms, CRM solutions, and automation tools that help businesses scale faster.">
-    <meta name="robots" content="index, follow">
+    <meta name="keywords" content="Custom Software Development, SaaS Development, AI Solutions, Web Application Development, Mobile App Development, UI/UX Design, Business Automation, CRM Development, ERP Development, API Development, Australia, UAE, Singapore, Canada, New Zealand">
+    <meta name="author" content="Gorke Sai Kumar, Nextora Creations">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://nextoracreations.co.in/">
+    <meta name="theme-color" content="#111111">
     
-    <!-- Open Graph Meta Tags -->
+    <!-- Apple Mobile Web App Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Nextora Creations">
+    
+    <!-- Open Graph Meta Tags (Facebook & LinkedIn) -->
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Nextora Creations">
     <meta property="og:url" content="https://nextoracreations.co.in/">
     <meta property="og:title" content="Nextora Creations | We Build Systems For Your Business">
     <meta property="og:description" content="Nextora Creations builds enterprise software, AI systems, SaaS products, ERP platforms, CRM solutions, and automation tools that help businesses scale faster.">
     <meta property="og:image" content="https://nextoracreations.co.in/logo.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -24,6 +47,7 @@
     <meta name="twitter:title" content="Nextora Creations | We Build Systems For Your Business">
     <meta name="twitter:description" content="Nextora Creations builds enterprise software, AI systems, SaaS products, ERP platforms, CRM solutions, and automation tools that help businesses scale faster.">
     <meta name="twitter:image" content="https://nextoracreations.co.in/logo.webp">
+    <meta name="twitter:creator" content="@NextoraCreations">
 
     <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,25 +68,79 @@
     <link rel="apple-touch-icon" href="/logo.webp">
     <link rel="manifest" href="/manifest.json">
 
-    <!-- Structured Data (Schema.org Organization) -->
+    <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Nextora Creations",
-      "slogan": "We Build Systems For Your Business",
-      "url": "https://nextoracreations.co.in",
-      "logo": "https://nextoracreations.co.in/logo.webp",
-      "description": "Nextora Creations builds enterprise software, AI systems, SaaS products, ERP platforms, CRM solutions, and automation tools that help businesses scale faster.",
-      "sameAs": [
-        "https://github.com/Gorkesaikumar/nextora_creations"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+91-7674981970",
-        "contactType": "customer support",
-        "email": "support@nextoracreations.co.in"
-      }
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://nextoracreations.co.in/#organization",
+          "name": "Nextora Creations",
+          "slogan": "We Build Systems For Your Business",
+          "url": "https://nextoracreations.co.in/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://nextoracreations.co.in/logo.webp",
+            "width": 512,
+            "height": 512
+          },
+          "description": "Nextora Creations builds enterprise software, AI systems, SaaS products, ERP platforms, CRM solutions, and automation tools that help businesses scale faster.",
+          "sameAs": [
+            "https://github.com/Gorkesaikumar/nextora_creations"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91-7674981970",
+            "contactType": "customer support",
+            "email": "support@nextoracreations.co.in",
+            "areaServed": ["AU", "AE", "SG", "CA", "NZ", "US", "GB"],
+            "availableLanguage": ["English"]
+          },
+          "founder": {
+            "@type": "Person",
+            "name": "Gorke Sai Kumar"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://nextoracreations.co.in/#website",
+          "url": "https://nextoracreations.co.in/",
+          "name": "Nextora Creations",
+          "publisher": {
+            "@id": "https://nextoracreations.co.in/#organization"
+          },
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://nextoracreations.co.in/#localbusiness",
+          "name": "Nextora Creations",
+          "url": "https://nextoracreations.co.in/",
+          "image": "https://nextoracreations.co.in/ceo.webp",
+          "description": "International Software Development & AI Solutions Agency serving clients globally.",
+          "telephone": "+91-7674981970",
+          "email": "support@nextoracreations.co.in",
+          "priceRange": "$$$"
+        },
+        {
+          "@type": "Service",
+          "serviceType": "Software Development",
+          "provider": {
+            "@id": "https://nextoracreations.co.in/#organization"
+          },
+          "areaServed": ["Australia", "United Arab Emirates", "Singapore", "Canada", "New Zealand"]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Custom SaaS & AI Platforms",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web, iOS, Android",
+          "provider": {
+            "@id": "https://nextoracreations.co.in/#organization"
+          }
+        }
+      ]
     }
     </script>
 </head>
@@ -115,6 +193,7 @@
 </nav>
 
 <!-- Hero Section -->
+<main>
 <section class="min-h-screen pt-32 md:pt-40 pb-16 md:pb-20 relative overflow-hidden border-b border-outline">
     <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-full">
         <div class="grid grid-cols-12 gap-8 h-full">
@@ -401,6 +480,7 @@
         </div>
     </div>
 </section>
+</main>
 
 <!-- FOOTER -->
 <footer class="bg-primary text-on-primary py-12 md:py-20 border-t border-on-primary/10">
