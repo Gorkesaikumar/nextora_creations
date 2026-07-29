@@ -58,12 +58,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 if (!prefersReducedMotion) {
     // Fade up elements animation
     gsap.utils.toArray('.fade-up').forEach(elem => {
-        gsap.fromTo(elem, 
+        gsap.fromTo(elem,
             { y: 40, opacity: 0 },
-            { 
-                y: 0, 
-                opacity: 1, 
-                duration: 0.8, 
+            {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: elem,
@@ -123,8 +123,8 @@ window.addEventListener('beforeunload', () => {
 const modal = document.getElementById('projectModal');
 const modalContent = document.getElementById('modalContent');
 const openBtns = [
-    document.getElementById('openModalBtnNav'), 
-    document.getElementById('openModalBtnCTA'), 
+    document.getElementById('openModalBtnNav'),
+    document.getElementById('openModalBtnCTA'),
     document.getElementById('openModalBtnNavMobile')
 ];
 const closeBtn = document.getElementById('closeModalBtn');
@@ -164,10 +164,10 @@ function closeModal() {
 
 openBtns.forEach(btn => {
     if (btn) {
-        btn.addEventListener('click', (e) => { 
-            e.preventDefault(); 
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             if (isMobileMenuOpen) toggleMobileMenu();
-            openModal(); 
+            openModal();
         });
     }
 });
