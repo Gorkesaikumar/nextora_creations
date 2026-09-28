@@ -2,13 +2,19 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNFKFLE1GL"></script>
     <script>
+      // Do not send account, invitation or certificate URLs to analytics.
+      if (location.pathname === '/') {
+        const analytics = document.createElement('script');
+        analytics.async = true;
+        analytics.src = 'https://www.googletagmanager.com/gtag/js?id=G-DNFKFLE1GL';
+        document.head.appendChild(analytics);
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-DNFKFLE1GL');
+      }
     </script>
 
     <meta charset="utf-8">
@@ -182,6 +188,8 @@
             <a class="mobile-link font-headline text-4xl uppercase hover:text-cyan-accent transition-colors" href="#work">Projects</a>
             <a class="mobile-link font-headline text-4xl uppercase hover:text-cyan-accent transition-colors" href="#about">About</a>
             <a class="mobile-link font-headline text-4xl uppercase hover:text-cyan-accent transition-colors" href="#contact">Contact</a>
+            <a class="mobile-link font-headline text-4xl uppercase hover:text-cyan-accent transition-colors" href="/internships">Internships</a>
+            <a class="mobile-link font-headline text-4xl uppercase hover:text-cyan-accent transition-colors" href="/verify-certificate">Verify Certificate</a>
             
             <div class="flex flex-col space-y-4 mt-12 w-full pt-8 border-t border-outline">
                 <button id="openModalBtnNavMobile" class="w-full bg-primary text-on-primary font-mono text-[10px] md:text-label-technical uppercase px-4 py-4 hover:bg-cyan-accent transition-all text-center whitespace-normal break-words">Start Your Project</button>
@@ -504,6 +512,9 @@
                     <a href="#work" class="hover:text-cyan-accent transition-colors">Projects</a>
                     <a href="#about" class="hover:text-cyan-accent transition-colors">About</a>
                     <a href="#contact" class="hover:text-cyan-accent transition-colors">Contact</a>
+                    <a href="/internships" class="hover:text-cyan-accent transition-colors">Internships</a>
+                    <a href="/internship/certificate" class="hover:text-cyan-accent transition-colors">My Certificate</a>
+                    <a href="/verify-certificate" class="hover:text-cyan-accent transition-colors">Verify Certificate</a>
                 </div>
             </div>
         </div>

@@ -1,7 +1,10 @@
 import './style.css';
+import { mountInternships } from './internships/portal.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
+
+mountInternships();
 
 // Motion Preference Check
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

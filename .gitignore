@@ -15,6 +15,13 @@ dist-ssr/
 .env
 .env.local
 .env.*.local
+.env.*
+!.env.example
+private/
+test-results/
+playwright-report/
+tmp/
+output/
 
 # Logs
 logs
