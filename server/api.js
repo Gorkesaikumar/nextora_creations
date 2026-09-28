@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { publicExtension, privateExtension, saveProgram } from './admin-extension.js';
 import { z, ZodError } from 'zod';
 import { authenticate, checkPassword, hashPassword, hash, token, sessionCookie, rateLimit } from './auth.js';
 import { assert, HttpError, email, password, uuid, programSchema, createInternshipSchema, internshipFields,
@@ -22,7 +22,7 @@ export function configuration(env = process.env) {
     rateSecret: env.RATE_LIMIT_SECRET || localSecret,
     signatureBase64: env.CERTIFICATE_SIGNATURE_BASE64, signaturePath: env.CERTIFICATE_SIGNATURE_PATH };
 }
-async function body(request, schema) {
+async function body(request, schema, limit = 16384) {
   assert(request.headers.get('content-type')?.split(';')[0] === 'application/json', 415, 'Send a JSON request.');
   const reader = request.body?.getReader();
   assert(reader, 400, 'Request body is required.');
@@ -31,7 +31,7 @@ async function body(request, schema) {
     const { done, value } = await reader.read();
     if (done) break;
     size += value.length;
-    if (size > 16384) { await reader.cancel(); throw new HttpError(413, 'Request body is too large.'); }
+    if (size > limit) { await reader.cancel(); throw new HttpError(413, 'Request body is too large.'); }
     parts.push(Buffer.from(value));
   }
   let data;
@@ -43,7 +43,7 @@ const emptyBody = z.object({}).strict();
 async function createSession(db, user, production) {
   const raw = token(), csrf_token = token();
   await db.query(`INSERT INTO nc.sessions(token_hash,user_id,csrf_token,expires_at) VALUES($1,$2,$3,now()+interval '8 hours')`, [hash(raw),user.id,csrf_token]);
-  return json({ user: { id: user.id, role: user.role, email: user.email }, csrf_token }, 200,
+  return json({ user: { id: user.id, role: user.role, email: user.email, display_name:user.display_name, must_change_password:!!user.must_change_password }, csrf_token }, 200,
     { 'Set-Cookie': sessionCookie(raw, production) });
 }
 export function createAPI(db, config, clock) {
@@ -67,10 +67,8 @@ export function createAPI(db, config, clock) {
           ? (await db.query('SELECT certificate_number,snapshot,status,issued_at FROM nc.certificates WHERE certificate_number=$1', [number])).rows[0] : null;
         return c ? json(publicCertificate(c)) : json({ status: 'NOT_FOUND', message: 'The certificate ID provided could not be verified as a certificate issued through this system.' }, 404);
       }
-      if (path === '/api/programs' && method === 'GET') {
-        return json({ programs: (await db.query(`SELECT id,title,description,department,duration_months,minimum_duration_months,start_date,end_date
-          FROM nc.programs WHERE status='ACTIVE' ORDER BY title LIMIT 200`)).rows });
-      }
+      const publicResult=await publicExtension({db,path,method,url,request,body,json,config,ip,service});
+      if(publicResult) return publicResult;
       if (path === '/api/auth/login' && method === 'POST') {
         await rateLimit(db, `login:${ip}`, 10, 900, config.rateSecret);
         const input = await body(request, z.object({ email, password: z.string().min(1).max(128) }).strict());
@@ -78,7 +76,7 @@ export function createAPI(db, config, clock) {
         const user = (await db.query('SELECT * FROM nc.users WHERE email=$1', [input.email])).rows[0];
         const valid = await checkPassword(input.password, user?.password_hash);
         assert(valid && !user.disabled, 401, 'The email or password is incorrect.');
-        return await db.transaction(tx => createSession(tx, user, config.production));
+        return await db.transaction(async tx => { if(user.role==='ADMIN') await audit(tx,'ADMIN_LOGIN',user.id); return createSession(tx,user,config.production); });
       }
       if (path === '/api/auth/activate' && method === 'POST') {
         await rateLimit(db, `activate:${ip}`, 10, 900, config.rateSecret);
@@ -102,11 +100,11 @@ export function createAPI(db, config, clock) {
       const actor = await authenticate(db, request, config.production);
       if (mutation) assert(request.headers.get('x-csrf-token') === actor.csrf_token, 403, 'Your security token has expired. Refresh the page.');
       if (path === '/api/auth/me' && method === 'GET') {
-        return json({ user: { id: actor.id, email: actor.email, role: actor.role }, csrf_token: actor.csrf_token });
+        return json({ user: { id: actor.id, email: actor.email, role: actor.role, display_name:actor.display_name, must_change_password:!!actor.must_change_password }, csrf_token: actor.csrf_token });
       }
       if (path === '/api/auth/logout' && method === 'POST') {
         await body(request, emptyBody);
-        await db.query('DELETE FROM nc.sessions WHERE token_hash=$1', [actor.token_hash]);
+        await db.transaction(async tx=>{await tx.query('DELETE FROM nc.sessions WHERE token_hash=$1',[actor.token_hash]);if(actor.role==='ADMIN') await audit(tx,'ADMIN_LOGOUT',actor.id);});
         return json({ success: true }, 200, { 'Set-Cookie': sessionCookie('', config.production, 0) });
       }
       if (path === '/api/auth/password' && method === 'POST') {
@@ -115,36 +113,22 @@ export function createAPI(db, config, clock) {
         await db.transaction(async tx => {
           const user = (await tx.query('SELECT * FROM nc.users WHERE id=$1 FOR UPDATE', [actor.id])).rows[0];
           assert(await checkPassword(input.current_password, user.password_hash), 401, 'The current password is incorrect.');
-          await tx.query('UPDATE nc.users SET password_hash=$2 WHERE id=$1', [actor.id,await hashPassword(input.password)]);
+          assert(input.password!==input.current_password,400,'Choose a different password from the temporary password.');
+          await tx.query('UPDATE nc.users SET password_hash=$2,must_change_password=false WHERE id=$1', [actor.id,await hashPassword(input.password)]);
           await tx.query('DELETE FROM nc.sessions WHERE user_id=$1', [actor.id]);
           await audit(tx, 'PASSWORD_CHANGED', actor.id);
         });
         return json({ success: true }, 200, { 'Set-Cookie': sessionCookie('', config.production, 0) });
       }
+      assert(!actor.must_change_password,403,'Change your temporary password before continuing.','PASSWORD_CHANGE_REQUIRED');
       if (path.startsWith('/api/admin/')) assert(actor.role === 'ADMIN', 403, 'Company administrator access is required.');
 
       if (path === '/api/admin/programs' && method === 'GET') return json({ programs: (await db.query('SELECT * FROM nc.programs ORDER BY title LIMIT 200')).rows });
-      if (path === '/api/admin/programs' && method === 'POST') {
-        const p = await body(request, programSchema), id = randomUUID();
-        await db.transaction(async tx => {
-          await tx.query(`INSERT INTO nc.programs(id,title,description,department,duration_months,minimum_duration_months,start_date,end_date,status,certificate_template)
-            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`, [id,p.title,p.description,p.department,p.duration_months,p.minimum_duration_months,p.start_date,p.end_date,p.status,p.certificate_template]);
-          await audit(tx, 'PROGRAM_CREATED', actor.id, null, null, { program_id: id });
-        });
-        return json({ id }, 201);
-      }
-      const programMatch = path.match(/^\/api\/admin\/programs\/([^/]+)$/);
-      if (programMatch && method === 'PATCH') {
-        const id = uuid.parse(programMatch[1]), p = await body(request, programSchema);
-        await db.transaction(async tx => {
-          const result = await tx.query(`UPDATE nc.programs SET title=$2,description=$3,department=$4,duration_months=$5,
-            minimum_duration_months=$6,start_date=$7,end_date=$8,status=$9,certificate_template=$10,updated_at=now() WHERE id=$1 RETURNING id`,
-          [id,p.title,p.description,p.department,p.duration_months,p.minimum_duration_months,p.start_date,p.end_date,p.status,p.certificate_template]);
-          assert(result.rows.length, 404, 'Program not found.');
-          await audit(tx, 'PROGRAM_UPDATED', actor.id, null, null, { program_id: id });
-        });
-        return json({ id });
-      }
+      const extension=await privateExtension({db,path,method,url,request,body,json,config,ip,service,actor});
+      if(extension) return extension;
+      if(path==='/api/admin/programs'&&method==='POST') return json(await saveProgram(db,actor,await body(request,programSchema)),201);
+      const programMatch=path.match(/^\/api\/admin\/programs\/([^/]+)$/);
+      if(programMatch&&method==='PATCH') return json(await saveProgram(db,actor,await body(request,programSchema),uuid.parse(programMatch[1])));
       if (path === '/api/admin/summary' && method === 'GET') {
         return json((await db.query(`SELECT count(DISTINCT student_id)::int AS total,
           count(DISTINCT student_id) FILTER (WHERE status='ACTIVE')::int AS active,

@@ -28,7 +28,7 @@ try {
     const seeded=await run(process.execPath,['tests/seed-ui.js'],env);
     if(seeded) throw new Error('UI fixture setup failed.');
     env.CERTIFICATE_SIGNATURE_PATH='tmp/test-signature.png';
-    process.exitCode=await run(process.execPath,['node_modules/@playwright/test/cli.js','test'],env);
+    process.exitCode=await run(process.execPath,['node_modules/@playwright/test/cli.js','test',...process.argv.slice(2).filter(arg=>arg!=='--ui')],env);
   } else {
     process.exitCode=await run(process.execPath,['--test','tests/domain.test.js','tests/integration.test.js'],env);
   }

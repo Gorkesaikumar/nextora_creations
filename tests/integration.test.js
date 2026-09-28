@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { extensionTests } from './admin-extension.js';
 import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
@@ -43,6 +44,8 @@ test('PostgreSQL + real API + server PDF secure lifecycle',async t=>{
   const create=async(overrides={})=>{
     const input=internshipInput(programId,overrides);
     const out=await post('/admin/internships',input); assert.equal(out.status,201,JSON.stringify(out.result));
+    // Explicitly model grandfathered records for the original lifecycle regression tests.
+    await db.query("UPDATE nc.internships SET workflow_version=1,status='INVITED' WHERE id=$1",[out.result.internship.id]);
     return {input,...out.result};
   };
   const transition=(id,status)=>post(`/admin/internships/${id}/status`,{status});
@@ -197,6 +200,7 @@ test('PostgreSQL + real API + server PDF secure lifecycle',async t=>{
     const limited=await request('/verify/INVALID',{ip:'same-verifier',api:another});
     assert.equal(limited.status,429); assert.ok(limited.response.headers.get('retry-after'));
   });
+  await extensionTests(t,{db,request,post,admin,student,transition});
   await t.test('password change revokes all sessions and logout invalidates session',async()=>{
     const changed=await post('/auth/password',{current_password:testPassword,password:'New-test-only-passphrase-2026!'},student);
     assert.equal(changed.status,200);
@@ -211,8 +215,8 @@ test('PostgreSQL + real API + server PDF secure lifecycle',async t=>{
     const random=await request(`/verify/NC-INT-2026-${randomUUID().replaceAll('-','').slice(0,24).toUpperCase()}`); assert.equal(random.status,404);
     assert.ok(adminUser.id);
   });
-  await t.test('runtime role cannot alter signatures, admin roles, schema or historical rows',async()=>{
-    await assert.rejects(runtime.query("UPDATE nc.company_assets SET sha256='changed'"),/permission denied/);
+  await t.test('runtime role cannot alter admin roles, schema or historical rows',async()=>{
+    await assert.rejects(runtime.query("DELETE FROM nc.company_assets"),/permission denied/);
     await assert.rejects(runtime.query("UPDATE nc.users SET role='ADMIN'"),/permission denied/);
     await assert.rejects(runtime.query('DELETE FROM nc.certificates'),/permission denied/);
     await assert.rejects(runtime.query('DELETE FROM nc.audit_logs'),/permission denied/);

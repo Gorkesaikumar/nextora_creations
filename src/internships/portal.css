@@ -90,3 +90,26 @@
 @media(min-width:1024px) and (max-width:1350px){.internship-route nav .space-x-12{gap:18px}.internship-route nav .space-x-12>*{margin-left:0}.internship-route nav .magnetic-btn{padding:12px;font-size:9px}}
 @media(max-width:1023px){.nc-portal{padding:145px 32px 64px}.nc-columns{gap:24px}.nc-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.nc-stat:nth-child(3){border-right:0}.nc-stat:nth-child(-n+3){border-bottom:1px solid #ECECEC}.nc-panel{padding:24px}}
 @media(max-width:700px){.nc-portal{padding:135px 24px 60px}.nc-columns,.nc-programs,.nc-form-grid{grid-template-columns:1fr}.nc-columns{gap:24px}.nc-heading{font-size:40px}.nc-filter{grid-template-columns:1fr}.nc-panel{padding:24px 20px}.nc-details{gap:20px}.nc-details dd{font-size:13px}.nc-actions{align-items:stretch}.nc-actions .nc-button{flex:1 1 auto}.nc-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.nc-stat{border-bottom:1px solid #ECECEC}.nc-stat:nth-child(3){border-right:1px solid #ECECEC}.nc-stat:nth-child(even){border-right:0}.nc-stat:nth-last-child(-n+2){border-bottom:0}.nc-stats .nc-stat{padding:20px}.nc-table{min-width:560px}.internship-route #mobileMenu>div{gap:18px;overflow:auto;max-height:calc(100dvh - 100px);margin-top:100px}.internship-route #mobileMenu .mobile-link{font-size:24px;margin:0}.internship-route #mobileMenu .mt-12{margin-top:10px;padding-top:18px}}
+.nc-admin.nc-portal{max-width:1600px;margin:180px auto 60px;padding:0 32px}
+.nc-admin-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px}
+.nc-sidebar{border-right:1px solid #ddd;padding-right:24px;align-self:start;position:sticky;top:180px}
+.nc-admin-brand{font-weight:900;font-size:23px;letter-spacing:-1px;color:#111;text-decoration:none}
+.nc-admin-brand span{display:block;font-size:9px;letter-spacing:1.5px;font-weight:600;color:#687078;margin:8px 0 30px}
+.nc-sidebar nav{display:grid;gap:5px;margin-bottom:24px}
+.nc-sidebar nav a{padding:11px 12px;border-radius:4px;font-size:13px;color:#464b50;text-decoration:none;line-height:1.4}
+.nc-sidebar nav a:hover,.nc-sidebar nav a[aria-current]{background:#e4f6fe;color:#007da9;font-weight:700}
+.nc-admin-main{min-width:0}.nc-admin-title{font-size:clamp(30px,3.2vw,48px);font-weight:700;letter-spacing:-1.6px;line-height:1.12;margin:22px 0 32px}
+.nc-admin .nc-stats{grid-template-columns:repeat(4,minmax(0,1fr))}.nc-admin .nc-columns{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px}
+.nc-admin .nc-topline{flex-wrap:wrap}.nc-admin .nc-topline>span{font-size:12px;overflow-wrap:anywhere}
+.nc-admin .nc-panel{padding:24px}.nc-admin .nc-table{font-size:12px}.nc-admin .nc-table td{max-width:300px;overflow-wrap:anywhere}
+.nc-admin summary{cursor:pointer;font-weight:600;line-height:1.6}.nc-admin details[open]>summary{margin-bottom:24px}
+.nc-document+.nc-document{border-top:1px solid #ddd;margin-top:25px;padding-top:25px}
+.nc-mono{font-family:monospace;overflow-wrap:anywhere}.nc-preserve{white-space:pre-line}
+.nc-template-preview iframe{width:100%;height:520px;border:1px solid #ddd;margin:20px 0}
+@media(max-width:1100px){.nc-admin-layout{grid-template-columns:180px minmax(0,1fr);gap:24px}.nc-admin .nc-columns{grid-template-columns:1fr}.nc-admin .nc-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.nc-admin.nc-portal{padding:0 18px;margin-top:145px}.nc-admin-layout{display:block}.nc-sidebar{position:static;border-right:0;border-bottom:1px solid #ddd;padding:0 0 20px;margin-bottom:28px}.nc-sidebar nav{display:flex;overflow-x:auto;gap:6px}.nc-sidebar nav a{flex:none}.nc-admin-brand span{margin-bottom:18px}.nc-admin .nc-panel{padding:18px}.nc-admin .nc-form-grid{grid-template-columns:1fr}.nc-template-preview iframe{height:400px}}
+
+.nc-admin .nc-stats .nc-stat{border-right:1px solid #ececec;border-bottom:1px solid #ececec}
+.nc-admin .nc-stats .nc-stat:nth-child(4n){border-right:0}
+.nc-admin .nc-stats .nc-stat:nth-last-child(-n+4){border-bottom:0}
+@media(max-width:1100px){.nc-admin .nc-stats .nc-stat:nth-child(2n){border-right:0}.nc-admin .nc-stats .nc-stat:nth-last-child(-n+4){border-bottom:1px solid #ececec}.nc-admin .nc-stats .nc-stat:nth-last-child(-n+2){border-bottom:0}}

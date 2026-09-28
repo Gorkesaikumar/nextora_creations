@@ -4,6 +4,7 @@ import { PDFDocument, rgb } from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
 import QRCode from 'qrcode';
 import { assert } from './domain.js';
+import { renderDocument } from './documents.js';
 
 const asset = name => readFile(resolve(process.cwd(), 'server/assets', name));
 let fonts;
@@ -23,6 +24,7 @@ export async function signatureBytes(config) {
   return bytes;
 }
 export async function generatePDF(certificate, config) {
+  if(certificate.snapshot.document_template) return renderDocument(certificate,'CERTIFICATE');
   const signature = await signatureBytes(certificate.snapshot.signature_png
     ? { signatureBase64: certificate.snapshot.signature_png } : config);
   const doc = await PDFDocument.create();

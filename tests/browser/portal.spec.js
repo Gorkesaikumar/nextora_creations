@@ -55,6 +55,8 @@ test('company workspace is authenticated; admin creates program and internship',
   await expect(page.locator('#nc-message')).toContainText('Private invitation created');
   await page.getByRole('link',{name:'Open internship',exact:true}).click();
   await expect(page.getByRole('heading',{name:'Browser Test Student',exact:true})).toBeVisible();
+  await page.getByRole('button',{name:'Approve intern',exact:true}).click();
+  await page.getByRole('button',{name:'Issue offer letter',exact:true}).click();
   await page.getByRole('button',{name:'Activate internship',exact:true}).click();
   await expect(page.locator('#nc-message')).toContainText('Record updated');
   await page.getByRole('button',{name:'Mark completed',exact:true}).click();

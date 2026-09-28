@@ -9,6 +9,7 @@ export const assert = (condition, status, message, code) => {
 };
 export const uuid = z.string().uuid();
 const clean = (max = 160) => z.string().trim().max(max).refine(v => !/[\u0000-\u001f\u007f]/u.test(v), 'Control characters are not allowed');
+const multiline = max => z.string().trim().max(max).refine(v=>!/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(v),'Control characters are not allowed');
 const required = (max = 160) => clean(max).refine(v => v.length > 0, 'Required');
 export const email = z.string().trim().toLowerCase().email().max(254);
 export const password = z.string().min(12).max(128);
@@ -21,22 +22,29 @@ export const profileSchema = z.object({
   course: clean(100), specialization: clean(100), registration_number: clean(100),
 }).strict();
 export const programSchema = z.object({
-  title: required(120), description: clean(2000), department: required(100),
+  title: required(120), description: multiline(2000), department: required(100),
   duration_months: z.number().int().min(1).max(60),
   minimum_duration_months: z.number().int().min(1).max(60),
   start_date: day.nullable(), end_date: day.nullable(),
-  status: z.enum(['DRAFT','ACTIVE','ARCHIVED']), certificate_template: z.literal('nextora-v1'),
+  status: z.enum(['DRAFT','ACTIVE','PUBLISHED','CLOSED','ARCHIVED']), certificate_template: z.literal('nextora-v1'),
+  slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(140).optional(),
+  role: required(120).default('Intern'), responsibilities: multiline(2000).default(''), skills: multiline(2000).default(''),
+  eligibility: multiline(2000).default(''), application_deadline: day.nullable().default(null),
+  internship_type: clean(80).default('INTERNSHIP'), location: clean(160).default(''),
+  work_mode: z.enum(['REMOTE','HYBRID','ONSITE']).default('REMOTE'), positions:z.number().int().min(1).max(10000).default(1),
+  applications_enabled:z.boolean().default(false),
 }).strict().refine(p => p.duration_months >= p.minimum_duration_months, 'Duration must meet the minimum')
   .refine(p => !p.start_date || !p.end_date || p.end_date >= p.start_date, 'End date must follow start date');
 export const internshipFields = z.object({ program_id: uuid, role: required(120), department: required(100),
   start_date: day, end_date: day, mentor: clean(120), project: clean(400),
 }).strict().refine(i => i.end_date >= i.start_date, 'End date must follow start date');
-export const createInternshipSchema = z.object({ student: profileSchema.extend({ email }), internship: internshipFields }).strict();
-export const states = ['INVITED','REGISTERED','ACTIVE','COMPLETED','CERTIFICATE_ELIGIBLE','CERTIFICATE_ISSUED','REJECTED','TERMINATED','CERTIFICATE_REVOKED'];
+export const createInternshipSchema = z.object({ student: profileSchema.extend({ email }), internship: internshipFields, workflow_version:z.literal(2).default(2) }).strict();
+export const states = ['INVITED','REGISTERED','APPROVED','OFFER_LETTER_ISSUED','ACTIVE','COMPLETED','CERTIFICATE_ELIGIBLE','CERTIFICATE_ISSUED','REJECTED','TERMINATED','CERTIFICATE_REVOKED'];
 export const transitions = {
-  INVITED: ['REGISTERED','ACTIVE','REJECTED'], REGISTERED: ['ACTIVE','REJECTED'],
+  INVITED: ['REGISTERED','APPROVED','ACTIVE','REJECTED'], REGISTERED: ['APPROVED','ACTIVE','REJECTED'],
+  APPROVED:['REJECTED'], OFFER_LETTER_ISSUED:['ACTIVE','TERMINATED'],
   ACTIVE: ['COMPLETED','TERMINATED'], COMPLETED: ['CERTIFICATE_ELIGIBLE','REJECTED'],
-  CERTIFICATE_ELIGIBLE: ['COMPLETED','REJECTED'], REJECTED: ['ACTIVE'], TERMINATED: [],
+  CERTIFICATE_ELIGIBLE: ['COMPLETED','REJECTED'], REJECTED: ['APPROVED','ACTIVE'], TERMINATED: [],
   CERTIFICATE_ISSUED: [], CERTIFICATE_REVOKED: [],
 };
 export function addMonths(date, months) {

@@ -27,7 +27,7 @@ export function cookieToken(request, production) {
 export async function authenticate(db, request, production) {
   const raw = cookieToken(request, production);
   assert(raw, 401, 'Please sign in to continue.');
-  const { rows } = await db.query(`SELECT u.id,u.email,u.role,s.csrf_token,s.token_hash
+  const { rows } = await db.query(`SELECT u.id,u.email,u.role,u.display_name,u.must_change_password,s.csrf_token,s.token_hash
     FROM nc.sessions s JOIN nc.users u ON u.id=s.user_id
     WHERE s.token_hash=$1 AND s.expires_at > now() AND NOT u.disabled`, [hash(raw)]);
   assert(rows[0], 401, 'Your session has expired. Please sign in again.');

@@ -1,4 +1,5 @@
 import './portal.css';
+import { mountAdmin } from './admin-portal.js';
 
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
 const pretty = value => String(value || '').replaceAll('_', ' ');
@@ -9,9 +10,10 @@ const link = (text, href, style = '') => `<a class="nc-button ${style}" href="${
 const field = (name, label, value = '', type = 'text', required = true, extra = '') => `<label class="nc-field"><span class="nc-label">${esc(label)}${required ? ' *' : ''}</span><input name="${esc(name)}" type="${type}" value="${esc(value)}" ${required?'required':''} ${extra}></label>`;
 const select = (name, label, options, value) => `<label class="nc-field"><span class="nc-label">${esc(label)}</span><select name="${esc(name)}" required>${options.map(([key,label])=>`<option value="${esc(key)}" ${key===value?'selected':''}>${esc(label)}</option>`).join('')}</select></label>`;
 const detail = (label, value, wide = false) => `<div class="${wide?'wide':''}"><dt>${esc(label)}</dt><dd>${esc(value || 'Not provided')}</dd></div>`;
-const states = ['INVITED','REGISTERED','ACTIVE','COMPLETED','CERTIFICATE_ELIGIBLE','CERTIFICATE_ISSUED','REJECTED','TERMINATED','CERTIFICATE_REVOKED'];
-const nextStates = { INVITED:['REGISTERED','ACTIVE','REJECTED'],REGISTERED:['ACTIVE','REJECTED'],ACTIVE:['COMPLETED','TERMINATED'],COMPLETED:['CERTIFICATE_ELIGIBLE','REJECTED'],CERTIFICATE_ELIGIBLE:['COMPLETED','REJECTED'],REJECTED:['ACTIVE'],TERMINATED:[],CERTIFICATE_ISSUED:[],CERTIFICATE_REVOKED:[] };
-const stateLabel = s => ({CERTIFICATE_ELIGIBLE:'Approve certificate eligibility',COMPLETED:'Mark completed',ACTIVE:'Activate internship',REJECTED:'Reject eligibility',TERMINATED:'Terminate internship',REGISTERED:'Mark registered'}[s] || pretty(s));
+const states = ['INVITED','REGISTERED','APPROVED','OFFER_LETTER_ISSUED','ACTIVE','COMPLETED','CERTIFICATE_ELIGIBLE','CERTIFICATE_ISSUED','REJECTED','TERMINATED','CERTIFICATE_REVOKED'];
+const nextStates = { INVITED:['REGISTERED','APPROVED','ACTIVE','REJECTED'],REGISTERED:['APPROVED','ACTIVE','REJECTED'],APPROVED:['REJECTED'],OFFER_LETTER_ISSUED:['ACTIVE','TERMINATED'],ACTIVE:['COMPLETED','TERMINATED'],COMPLETED:['CERTIFICATE_ELIGIBLE','REJECTED'],CERTIFICATE_ELIGIBLE:['COMPLETED','REJECTED'],REJECTED:['ACTIVE'],TERMINATED:[],CERTIFICATE_ISSUED:[],CERTIFICATE_REVOKED:[] };
+const stateLabel = s => ({APPROVED:'Approve intern',CERTIFICATE_ELIGIBLE:'Approve certificate eligibility',COMPLETED:'Mark completed',ACTIVE:'Activate internship',REJECTED:'Reject eligibility',TERMINATED:'Terminate internship',REGISTERED:'Mark registered'}[s] || pretty(s));
+let verificationKind='certificate';
 let root, session = null, record = null, programs = [], inviteToken = null, admin = false;
 const messages = '<div id="nc-message" class="nc-message" role="status" aria-live="polite"></div>';
 const heading = (eyebrow, title, description) => `<p class="nc-eyebrow">${eyebrow}</p><h1 class="nc-heading">${title}</h1><p class="nc-lead">${description}</p>`;
@@ -58,26 +60,34 @@ async function publicPrograms() {
     `<div class="nc-actions">${link('Access my certificate','/internship/certificate')}${link('Verify a certificate','/verify-certificate','secondary')}</div><div id="nc-programs" class="nc-programs"><p class="nc-loading">Loading programs…</p></div>`;
   try {
     const {programs} = await api('/programs');
-    document.querySelector('#nc-programs').innerHTML = programs.length ? programs.map(p=>`<article class="nc-program">${tag(p.department)}<h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><dl class="nc-details">${detail('Program duration',`${p.duration_months} months`)}${detail('Certificate minimum',`${p.minimum_duration_months} calendar months`)}</dl><a class="nc-link" href="mailto:support@nextoracreations.co.in?subject=${encodeURIComponent(`Internship enquiry: ${p.title}`)}">Enquire about this program →</a></article>`).join('') : '<div class="nc-empty"><strong>New opportunities take shape here.</strong>No programs are currently published. Contact <a class="nc-link" href="mailto:support@nextoracreations.co.in">Nextora Creations</a> for upcoming internships.</div>';
+    document.querySelector('#nc-programs').innerHTML = programs.length ? programs.map(p=>`<article class="nc-program">${tag(p.department)}<h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><dl class="nc-details">${detail('Program duration',`${p.duration_months} months`)}${detail('Certificate minimum',`${p.minimum_duration_months} calendar months`)}</dl><a class="nc-link" href="/internships/${esc(p.slug)}">View program & apply →</a></article>`).join('') : '<div class="nc-empty"><strong>New opportunities take shape here.</strong>No programs are currently published. Contact <a class="nc-link" href="mailto:support@nextoracreations.co.in">Nextora Creations</a> for upcoming internships.</div>';
   } catch(error) { document.querySelector('#nc-programs').innerHTML=''; message(error.message); }
 }
-async function verification(number = '') {
+async function publicProgram() {
+  const p=(await api(`/programs/${encodeURIComponent(location.pathname.split('/')[2])}`)).program;
+  const accepting=p.applications_enabled&&['ACTIVE','PUBLISHED'].includes(p.status)&&(!p.application_deadline||p.application_deadline>=new Date().toISOString().slice(0,10));
+  root.innerHTML=link('All internships','/internships','secondary')+heading(esc(p.department),esc(p.title),esc(p.description))+messages+`<div class="nc-columns"><section class="nc-panel">${tag(p.status)}<dl class="nc-details">${detail('Role',p.role)}${detail('Duration',p.duration_months+' months')}${detail('Work mode',p.work_mode)}${detail('Location',p.location)}${detail('Application deadline',date(p.application_deadline))}${detail('Positions',p.positions)}</dl><h2>Responsibilities</h2><p class="nc-preserve">${esc(p.responsibilities)}</p><h2>Requirements</h2><p class="nc-preserve">${esc(p.skills)}</p><h2>Eligibility</h2><p class="nc-preserve">${esc(p.eligibility)}</p></section><aside class="nc-panel"><h2>Apply for internship</h2>${accepting?`<form class="nc-form" data-form="application">${field('email','Email','','email')}${profileFields({})}<label class="nc-field"><span class="nc-label">Why this internship?</span><textarea name="motivation" maxlength="1500"></textarea></label><p class="nc-help">Your application is reviewed by Nextora management. Applying does not create a certificate or confirm acceptance.</p><button class="nc-button">Apply for internship</button></form>`:'<p>Applications are currently closed.</p>'}</aside></div>`;
+}
+async function verification(number = '',kind='certificate') {
+  verificationKind=kind;
   root.innerHTML = heading('Official certificate verification','Experience.<br><span>Verified.</span>','Confirm that an internship certificate was issued by Nextora Creations. Enter its certificate ID or scan the QR printed on the certificate.') + messages +
     `<div class="nc-columns"><section><div class="nc-panel"><form class="nc-form" data-form="verify">${field('certificate_number','Certificate ID',number,'text',true,'maxlength="64" autocomplete="off" spellcheck="false" placeholder="NC-INT-2026-…"')}<button class="nc-button" type="submit">Verify certificate <span aria-hidden="true">↗</span></button></form></div><div id="nc-verification" aria-live="polite"></div></section>
     <aside class="nc-panel nc-dark"><p class="nc-eyebrow">Trust the source</p><h2>A record you can rely on.</h2><p>This page checks Nextora’s official issuance records. A valid record confirms the internship role, period and certificate status.</p><ol class="nc-steps"><li><span>01</span><div><strong>Check the domain</strong><p>Official QR codes lead to nextoracreations.co.in.</p></div></li><li><span>02</span><div><strong>Match the details</strong><p>Compare the name, role and dates below with the certificate you received.</p></div></li><li><span>03</span><div><strong>Review the status</strong><p>A revoked certificate is no longer valid, even if you have a downloaded copy.</p></div></li></ol></aside></div>`;
+  if(kind==='offer') root.innerHTML=root.innerHTML.replaceAll('certificate','offer letter').replaceAll('Certificate','Offer Letter').replaceAll('NC-INT','NC-OFFER').replaceAll('name="offer letter_number"','name="certificate_number"');
   if(number) await verify(number);
 }
 async function verify(number) {
   const target=document.querySelector('#nc-verification');
   target.innerHTML='<p class="nc-loading">Checking the official record…</p>';
   try {
-    const c=await api(`/verify/${encodeURIComponent(number.trim().toUpperCase())}`);
+    const c=await api(`/${verificationKind==='offer'?'verify-offer':'verify'}/${encodeURIComponent(number.trim().toUpperCase())}`);
     const revoked=c.status==='REVOKED';
-    target.innerHTML=`<section class="nc-panel nc-section"><div class="nc-status ${revoked?'revoked':'verified'}"><span class="nc-status-icon" aria-hidden="true">${revoked?'!':'✓'}</span>${revoked?'CERTIFICATE REVOKED':'VERIFIED'}</div>${revoked?'<p>This certificate has been revoked by Nextora Creations and is no longer valid.</p>':''}<h2>${esc(c.student_name)}</h2><dl class="nc-details">${detail('Certificate ID',c.certificate_number,true)}${detail('Internship role',c.role)}${detail('Internship program',c.program)}${detail('Internship period',`${date(c.start_date)} – ${date(c.end_date)}`,true)}${detail('Issue date',date(c.issued_at))}${detail('Certificate status',revoked?'Revoked':'Valid')}</dl><p class="nc-help">Issued by Nextora Creations</p></section>`;
+    target.innerHTML=`<section class="nc-panel nc-section"><div class="nc-status ${revoked?'revoked':'verified'}"><span class="nc-status-icon" aria-hidden="true">${revoked?'!':'✓'}</span>${revoked?'CERTIFICATE REVOKED':'VERIFIED'}</div>${revoked?'<p>This certificate has been revoked by Nextora Creations and is no longer valid.</p>':''}<h2>${esc(c.student_name)}</h2><dl class="nc-details">${detail(verificationKind==='offer'?'Offer Letter ID':'Certificate ID',c.certificate_number||c.offer_number,true)}${detail('Internship role',c.role)}${detail('Internship program',c.program)}${detail('Internship period',`${date(c.start_date)} – ${date(c.end_date)}`,true)}${detail('Issue date',date(c.issued_at))}${detail('Certificate status',revoked?'Revoked':'Valid')}</dl><p class="nc-help">Issued by Nextora Creations</p></section>`;
   } catch(error) {
     target.innerHTML=error.result?.status==='NOT_FOUND'?'<section class="nc-panel nc-section"><div class="nc-status revoked"><span class="nc-status-icon" aria-hidden="true">?</span>CERTIFICATE NOT FOUND</div><p>The certificate ID provided could not be verified as a certificate issued through this system.</p><a class="nc-link" href="mailto:support@nextoracreations.co.in">Contact Nextora Creations</a></section>':'';
     if(error.result?.status!=='NOT_FOUND') message(error.message);
   }
+  if(verificationKind==='offer') target.innerHTML=target.innerHTML.replaceAll('CERTIFICATE','OFFER LETTER').replaceAll('certificate','offer letter').replaceAll('Certificate','Offer Letter');
 }
 function passwordForm() {
   return `<details class="nc-section"><summary>Account security</summary><form class="nc-form nc-panel" data-form="password"><h2>Change password</h2><div class="nc-form-grid">${field('current_password','Current password','','password',true,'autocomplete="current-password" maxlength="128"')}${field('password','New password','','password',true,'autocomplete="new-password" minlength="12" maxlength="128"')}</div><p class="nc-help">Changing your password signs out all sessions.</p><button type="submit" class="nc-button">Update password</button></form></details>`;
@@ -93,7 +103,7 @@ async function studentPage() {
     root.innerHTML=accountBar()+`<a class="nc-back" href="/internship/certificate">← All my internships</a>`+heading('Your official internship record',issued&&!revoked?`Congratulations,<br><span>${esc(i.certificate_student_name)}.</span>`:'Your experience.<br><span>Your record.</span>',issued&&!revoked?'Your internship is complete. Your official certificate is ready.':'Review your approved internship details and follow your certificate status.')+messages+
       `<div class="nc-columns"><section class="nc-panel">${tag(i.status)}${recordDetails({...i,program_title:i.certificate_program||i.program_title})}${issued?`<dl class="nc-details">${detail('Certificate ID',i.certificate_number,true)}${detail('Name at issue',i.certificate_student_name)}${detail('Certificate status',i.certificate_status)}${detail('Issue date',date(i.issued_at))}</dl>`:''}
       ${revoked?'<div class="nc-note error">CERTIFICATE REVOKED. This certificate is no longer valid. Contact Nextora Creations.</div>':i.eligible?'<div class="nc-note success">Your internship is approved for certificate issuance.</div>':!issued?'<div class="nc-note">Your internship certificate will become available after successful completion of your internship and company approval.</div>':''}
-      <div class="nc-actions">${i.eligible?button('Get my certificate','issue'):''}${issued&&!revoked?`${link('View certificate',`/api/me/internships/${i.id}/pdf?view=1`,'secondary')}${link('Download PDF',`/api/me/internships/${i.id}/pdf`)}`:''}${issued?link('Verify certificate',`/verify-certificate/${i.certificate_number}`,'secondary'):''}</div></section>
+      <div class="nc-actions">${i.eligible?button('Get my certificate','issue'):''}${issued&&!revoked?`${link('View certificate',`/api/me/internships/${i.id}/pdf?view=1`,'secondary')}${link('Download PDF',`/api/me/internships/${i.id}/pdf`)}`:''}${issued?link('Verify certificate',`/verify-certificate/${i.certificate_number}`,'secondary'):''}</div>${i.offer_number?`<h2 class="nc-section">Offer letter</h2>${tag(i.offer_status)}<p>${esc(i.offer_number)} · ${date(i.offer_issued_at)}</p><div class="nc-actions">${i.offer_status==='VALID'?link('View offer',`/api/me/internships/${i.id}/offer-pdf?view=1`,'secondary')+link('Download offer PDF',`/api/me/internships/${i.id}/offer-pdf`):''}${link('Verify offer',`/verify-offer/${i.offer_number}`,'secondary')}</div>`:''}</section>
       <aside class="nc-panel"><h2>Confirm your details</h2><p>Your dates, role and approval are maintained by Nextora. Contact the company for corrections to those fields.</p><form class="nc-form" data-form="details">${field('email','Registered email',i.email,'email',false,'readonly')}${profileFields(i)}<p class="nc-help">${i.details_confirmed_at?'Last confirmed '+date(i.details_confirmed_at)+'. ':''}These details help the company review your certificate. Issued certificates retain the information approved at issue.</p><button class="nc-button" type="submit" ${i.status==='CERTIFICATE_ELIGIBLE'?'disabled':''}>Confirm details</button></form></aside></div>`+passwordForm();
   } else {
     const page=Number(new URLSearchParams(location.search).get('page')||1);
@@ -110,7 +120,7 @@ function internshipForm(i={}) {
   return `<div class="nc-form-grid">${select('program_id','Internship program',programOptions(),i.program_id)}${field('role','Internship role',i.role,'text',true,'maxlength="120"')}${field('department','Department',i.department,'text',true,'maxlength="100"')}${field('start_date','Approved start date',i.start_date,'date')}${field('end_date','Approved completion date',i.end_date,'date')}${field('mentor','Supervisor',i.mentor,'text',false,'maxlength="120"')}</div>${field('project','Project / work completed',i.project,'text',false,'maxlength="400"')}`;
 }
 function programForm(p={}) {
-  return `<form class="nc-form nc-panel" data-form="program" data-id="${esc(p.id||'')}"><h2>${p.id?'Edit program':'Create a program'}</h2><div class="nc-form-grid">${field('title','Program title',p.title,'text',true,'maxlength="120"')}${field('department','Department',p.department,'text',true,'maxlength="100"')}${field('duration_months','Duration (months)',p.duration_months||3,'number',true,'min="1" max="60"')}${field('minimum_duration_months','Minimum duration (months)',p.minimum_duration_months||3,'number',true,'min="1" max="60"')}${field('start_date','Program start',p.start_date,'date',false)}${field('end_date','Program end',p.end_date,'date',false)}${select('status','Publication status',['DRAFT','ACTIVE','ARCHIVED'].map(x=>[x,pretty(x)]),p.status||'DRAFT')}</div><label class="nc-field"><span class="nc-label">Description</span><textarea name="description" maxlength="2000">${esc(p.description)}</textarea></label><p class="nc-help">Template: Nextora A4 landscape. Minimum duration defaults to three calendar months. Changes apply to new enrollments; existing requirements and issued certificates remain preserved.</p><button class="nc-button" type="submit">${p.id?'Save program':'Create program'}</button></form>`;
+  return `<form class="nc-form nc-panel" data-form="program" data-id="${esc(p.id||'')}"><h2>${p.id?'Edit program':'Create a program'}</h2><div class="nc-form-grid">${field('title','Program title',p.title,'text',true,'maxlength="120"')}${field('department','Department',p.department,'text',true,'maxlength="100"')}${field('duration_months','Duration (months)',p.duration_months||3,'number',true,'min="1" max="60"')}${field('minimum_duration_months','Minimum duration (months)',p.minimum_duration_months||3,'number',true,'min="1" max="60"')}${field('start_date','Program start',p.start_date,'date',false)}${field('end_date','Program end',p.end_date,'date',false)}${select('status','Publication status',['DRAFT','ACTIVE','PUBLISHED','CLOSED','ARCHIVED'].map(x=>[x,pretty(x)]),p.status||'DRAFT')}</div><label class="nc-field"><span class="nc-label">Description</span><textarea name="description" maxlength="2000">${esc(p.description)}</textarea></label><p class="nc-help">Template: Nextora A4 landscape. Minimum duration defaults to three calendar months. Changes apply to new enrollments; existing requirements and issued certificates remain preserved.</p><button class="nc-button" type="submit">${p.id?'Save program':'Create program'}</button></form>`;
 }
 function pagination(result, path) {
   const query=new URLSearchParams(location.search);
@@ -130,7 +140,7 @@ async function adminPage() {
       <div class="nc-actions">${i.certificate_status==='VALID'?`${link('View certificate',`/api/admin/internships/${i.id}/pdf?view=1`,'secondary')}${link('Download PDF',`/api/admin/internships/${i.id}/pdf`)}`:''}${i.certificate_number?link('Public verification',`/verify-certificate/${i.certificate_number}`,'secondary'):''}</div>
       ${!i.certificate_number?`<details class="nc-section"><summary>Edit approved internship information</summary><form class="nc-form" data-form="edit-internship">${internshipForm(i)}<p class="nc-help">Saving changes clears existing certificate approval. Issued records cannot be edited.</p><button class="nc-button" type="submit">Save changes</button></form></details>`:''}</section>
       <aside><section class="nc-panel"><h2>Review &amp; approval</h2><p>${i.duration_met?'The approved period meets the required duration. Confirm successful completion and check the student’s details before approval.':'The internship cannot be completed or approved until the required duration and approved end date are reached.'}</p>
-      <div class="nc-actions">${(nextStates[i.status]||[]).map(s=>button(stateLabel(s),`status:${s}`,s==='REJECTED'||s==='TERMINATED'?'danger':'secondary')).join('')}${i.eligible?button('Generate certificate','issue'):''}</div>
+      <div class="nc-actions">${(nextStates[i.status]||[]).filter(s=>i.workflow_version!==2||s!=='ACTIVE'||i.status==='OFFER_LETTER_ISSUED').map(s=>button(stateLabel(s),`status:${s}`,s==='REJECTED'||s==='TERMINATED'?'danger':'secondary')).join('')}${i.status==='APPROVED'?button('Issue offer letter','offer'):''}${i.eligible?button('Generate certificate','issue'):''}</div>
       ${i.certificate_status==='VALID'?`<details class="nc-section"><summary>Certificate controls</summary><p class="nc-help">Regeneration preserves the certificate ID and original approved information, and adds a PDF revision.</p>${button('Regenerate PDF','regenerate','secondary')}<form class="nc-form nc-section" data-form="revoke">${field('reason','Reason for revocation','','text',true,'minlength="5" maxlength="500"')}<p class="nc-help">Revocation is permanent. Public verification will show REVOKED and further downloads will be disabled.</p><button class="nc-button danger" type="submit">Revoke certificate</button></form></details>`:''}
       <details class="nc-section"><summary>Student access</summary><p class="nc-help">Create a private invitation for first access or account recovery. It expires in 48 hours. Verify the student’s identity before sharing. Activating it replaces the password and ends previous sessions.</p>${button('Create private invitation','invite','secondary')}<div id="nc-invite"></div></details></section>
       <section class="nc-panel nc-section"><h2>Certificate history</h2><div id="nc-history" aria-live="polite">Loading history…</div></section></aside></div>`;
@@ -138,7 +148,7 @@ async function adminPage() {
   } else if(tab==='programs') {
     root.innerHTML=base+`<div class="nc-columns"><section>${programs.length?programs.map(p=>`<details class="nc-panel" style="margin-bottom:20px"><summary>${esc(p.title)} · ${esc(p.status)}</summary>${programForm(p)}</details>`).join(''):'<div class="nc-empty"><strong>No programs yet</strong>Create a program before enrolling an intern.</div>'}</section><aside>${programForm()}</aside></div>`;
   } else if(tab==='new') {
-    root.innerHTML=base+(programs.some(p=>p.status==='ACTIVE')?`<form class="nc-form nc-panel" data-form="create-internship"><h2>Student information</h2><p class="nc-help">An existing student is matched by email and retains their saved profile. New students receive a private activation invitation.</p>${field('email','Student email','','email',true,'maxlength="254"')}${profileFields({})}<h2 class="nc-section">Approved internship</h2>${internshipForm()}<button class="nc-button" type="submit">Create internship</button></form>`:`<div class="nc-empty"><strong>Create an active program first</strong>${link('Manage programs','/admin/internships?tab=programs')}</div>`);
+    root.innerHTML=base+(programs.some(p=>['ACTIVE','PUBLISHED'].includes(p.status))?`<form class="nc-form nc-panel" data-form="create-internship"><h2>Student information</h2><p class="nc-help">An existing student is matched by email and retains their saved profile. New students receive a private activation invitation.</p>${field('email','Student email','','email',true,'maxlength="254"')}${profileFields({})}<h2 class="nc-section">Approved internship</h2>${internshipForm()}<button class="nc-button" type="submit">Create internship</button></form>`:`<div class="nc-empty"><strong>Create an active program first</strong>${link('Manage programs','/admin/internships?tab=programs')}</div>`);
   } else {
     const summary=await api('/admin/summary');
     const result=await api(`/admin/internships?${params}`);
@@ -168,7 +178,9 @@ async function renderPrivate() {
     root.innerHTML=heading('Company access','Access restricted.','A company administrator account is required to manage internships.')+messages+button('Sign out','logout','secondary')+link('My internships','/internship/certificate');
     return;
   }
-  if(admin) await adminPage(); else await studentPage();
+  if(session.user.must_change_password) {root.innerHTML=heading('Account security','Change your temporary password.','Set a new password before accessing administration.')+messages+passwordForm().replace('<details class="nc-section">','<details class="nc-section" open>');return;}
+  if(admin&&location.pathname!=='/admin/internships') await mountAdmin({root,api,session,message,passwordForm});
+  else if(admin) await adminPage(); else await studentPage();
 }
 async function submit(event) {
   const form=event.target.closest('[data-form]'); if(!form) return;
@@ -185,13 +197,19 @@ async function submit(event) {
       window.scrollTo(0,0);
     } else if(kind==='verify') {
       const number=values.certificate_number.trim().toUpperCase();
-      history.replaceState(null,'',`/verify-certificate/${encodeURIComponent(number)}`);
+      history.replaceState(null,'',`/verify-${verificationKind}/${encodeURIComponent(number)}`);
       await verify(number);
+    } else if(kind==='application') {
+      const {motivation,...student}=values;
+      const r=await api(`/programs/${encodeURIComponent(location.pathname.split('/')[2])}/applications`,{method:'POST',data:{student,motivation}});
+      form.reset();message(r.message,'success');
     } else if(kind==='filter') {
       location.href=`/admin/internships?${new URLSearchParams(values)}`;
     } else if(kind==='program') {
       const id=form.dataset.id;
-      await api(`/admin/programs${id?'/'+id:''}`,{method:id?'PATCH':'POST',data:{...values,duration_months:Number(values.duration_months),minimum_duration_months:Number(values.minimum_duration_months),start_date:values.start_date||null,end_date:values.end_date||null,certificate_template:'nextora-v1'}});
+      const existing=programs.find(p=>p.id===id)||{};
+      const extra=Object.fromEntries(['slug','role','responsibilities','skills','eligibility','application_deadline','internship_type','location','work_mode','positions','applications_enabled'].filter(k=>k in existing).map(k=>[k,existing[k]]));
+      await api(`/admin/programs${id?'/'+id:''}`,{method:id?'PATCH':'POST',data:{...extra,...values,duration_months:Number(values.duration_months),minimum_duration_months:Number(values.minimum_duration_months),start_date:values.start_date||null,end_date:values.end_date||null,certificate_template:'nextora-v1'}});
       await adminPage(); message('Program saved.','success');
     } else if(kind==='create-internship') {
       const {email,full_name,phone_number,college_name,university_name,course,specialization,registration_number,...internship}=values;
@@ -232,13 +250,13 @@ async function action(event) {
   finally { target.disabled=false; }
 }
 export function mountInternships() {
-  if(!/^\/(internships\/?$|internship\/certificate(?:\/[^/]+)?\/?$|verify-certificate(?:\/[^/]+)?\/?$|admin\/internships\/?$)/.test(location.pathname)) return;
+  if(!/^\/(internships(?:\/[^/]+)?\/?$|internship\/certificate(?:\/[^/]+)?\/?$|verify-(?:certificate|offer)(?:\/[^/]+)?\/?$|admin(?:\/.*)?$)/.test(location.pathname)) return;
   document.body.classList.add('internship-route');
   document.querySelectorAll('nav a[href^="#"],footer a[href^="#"]').forEach(a=>a.setAttribute('href','/'+a.getAttribute('href')));
   document.querySelector('meta[name="viewport"]').content='width=device-width, initial-scale=1.0';
   document.querySelector('link[rel="canonical"]').href=`https://nextoracreations.co.in${location.pathname}`;
   document.querySelector('meta[name="robots"]').content='noindex, nofollow';
-  admin=location.pathname.startsWith('/admin/');
+  admin=/^\/admin(?:\/|$)/.test(location.pathname);
   document.title=`${admin?'Internship Management':location.pathname.startsWith('/verify-certificate')?'Verify Certificate':'Internships'} | Nextora Creations`;
   const fragment=new URLSearchParams(location.hash.slice(1));
   inviteToken=fragment.get('invite');
@@ -248,8 +266,9 @@ export function mountInternships() {
   root.addEventListener('submit',submit); root.addEventListener('click',action);
   (async()=>{
     try {
-      if(location.pathname.startsWith('/verify-certificate')) await verification(decodeURIComponent(location.pathname.split('/')[2]||''));
+      if(location.pathname.startsWith('/verify-')) await verification(decodeURIComponent(location.pathname.split('/')[2]||''),location.pathname.startsWith('/verify-offer')?'offer':'certificate');
       else if(location.pathname.replace(/\/$/,'')==='/internships') await publicPrograms();
+      else if(location.pathname.startsWith('/internships/')) await publicProgram();
       else { await getSession(); if(inviteToken){session=null;login();} else await renderPrivate(); }
     } catch(error) {
       root.innerHTML=heading('Nextora internship services','We couldn’t load<br><span>your record.</span>','Please try again shortly or contact Nextora Creations for assistance.')+messages+`<div class="nc-actions">${link('Try again',location.pathname,'secondary')}${link('Contact support','mailto:support@nextoracreations.co.in','secondary')}</div>`;
