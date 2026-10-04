@@ -1,0 +1,17 @@
+{
+  "name": "nextora-pos-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Official product website for Nextora POS by Nextora Creations",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/build-meta.mjs",
+    "build:silent": "vite build",
+    "preview": "vite preview",
+    "og": "node scripts/build-meta.mjs"
+  },
+  "engines": {
+    "node": ">=22.15.0"
+  }
+}

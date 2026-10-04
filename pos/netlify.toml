@@ -1,0 +1,120 @@
+[build]
+  command = "npm --prefix pos run build"
+  publish = "pos/dist"
+  # Isolated from the main site: the POS deploy does not build or ship the
+  # main website or its Netlify functions. See pos/docs/deployment.md.
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Set this in the POS Netlify site's UI (not shared settings) to pin the
+  # product domain used for canonical URLs, sitemap and OG image generation.
+  # VITE_SITE_URL = "https://pos.nextoracreations.co.in"
+
+# ---------------- Canonical domain ----------------
+# Primary: https://pos.nextoracreations.co.in (apex subdomain, no www).
+[[redirects]]
+  from = "https://www.pos.nextoracreations.co.in/*"
+  to = "https://pos.nextoracreations.co.in/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://pos.nextoracreations.co.in/*"
+  to = "https://pos.nextoracreations.co.in/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.pos.nextoracreations.co.in/*"
+  to = "https://pos.nextoracreations.co.in/:splat"
+  status = 301
+  force = true
+
+# ---------------- Clean canonical URLs ----------------
+# Deterministic pretty URLs: /<name> serves /<name>.html (plus index at /).
+# force=false keeps precedence for real static files (assets, images).
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/:page"
+  to = "/:page.html"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/support/:topic"
+  to = "/support/:topic.html"
+  status = 200
+  force = false
+
+# One canonical path per page; variants 301 to canonical.
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/windows"
+  to = "/desktop"
+  status = 301
+
+[[redirects]]
+  from = "/pos"
+  to = "/"
+  status = 301
+
+# NOTE: if pos.nextoracreations.co.in is ever served from the MAIN site's
+# deploy instead, add a /pos/* -> / redirect to the main netlify.toml so the
+# subdomain paths resolve. Not needed for the standalone deployment.
+
+# ---------------- 404 handling ----------------
+# Unknown paths get the 404 page. Netlify also serves dist/404.html natively.
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+# ---------------- Security & caching headers ----------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), browsing-topics=(), payment=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/products/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
