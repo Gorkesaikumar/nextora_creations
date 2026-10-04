@@ -2,11 +2,9 @@
 import { SITE } from '../../data/site.js';
 
 const LINKS = [
-  { href: '/', label: 'Overview' },
+  { href: '/features', label: 'Features' },
   { href: '/desktop', label: 'Desktop' },
   { href: '/android', label: 'Android' },
-  { href: '/features', label: 'Features' },
-  { href: '/how-it-works', label: 'How It Works' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/support', label: 'Support' },
 ];
@@ -33,9 +31,9 @@ export function renderNavbar() {
   mount.innerHTML = `
   <header class="nav ${night ? 'nav--night' : ''}" data-nav>
     <div class="container nav__inner">
-      <a class="nav__logo" href="/" aria-label="Nextora POS home">
+      <a class="nav__logo" href="/" aria-label="Nextora Mini POS home">
         <img src="/brand/logo.png" alt="" width="34" height="34">
-        <span><b>Nextora</b> POS</span>
+        <span><b>Nextora</b> Mini POS</span>
       </a>
       <nav class="nav__links" aria-label="Primary">
         ${LINKS.map(

@@ -10,157 +10,177 @@ const OUT = resolve(__dirname, '..', 'pages', 'support');
 
 const meta = {
   'getting-started': {
-    title: 'Getting Started — Install, Activate, First Bill | Nextora POS Support',
-    desc: 'Set up Nextora POS in three steps: install, activate your license and start billing.',
+    title: 'Getting Started & Installation | Nextora Mini POS Support',
+    desc: 'Install, activate your annual license and start billing in three steps.',
   },
   desktop: {
-    title: 'Desktop Setup (Windows) | Nextora POS Support',
-    desc: 'Install Nextora POS Desktop on Windows, configure your printer and take your first bill.',
+    title: 'Windows Desktop Setup | Nextora Mini POS Support',
+    desc: 'Install Nextora Mini POS on Windows 10/11, configure thermal printers and manage counter workflows.',
   },
   android: {
-    title: 'Android Setup | Nextora POS Support',
-    desc: 'Install the Nextora POS Android APK, activate and set up printing and backups.',
+    title: 'Android Mobile Setup | Nextora Mini POS Support',
+    desc: 'Install Nextora Mini POS for Android, configure Bluetooth thermal printers and start mobile billing.',
+  },
+  billing: {
+    title: 'Billing & Item Management | Nextora Mini POS Support',
+    desc: 'Manage your item catalog, create fast counter bills, calculate taxes, and print receipts.',
   },
   printers: {
-    title: 'Printer Setup — ESC/POS, Bluetooth & Wi-Fi | Nextora POS Support',
-    desc: 'Connect supported thermal printers to Nextora POS on Desktop and Android.',
+    title: 'Thermal Printer Setup — ESC/POS, Bluetooth & Wi-Fi | Nextora Mini POS Support',
+    desc: 'Connect supported ESC/POS USB, serial, Bluetooth and Wi-Fi thermal printers.',
   },
   activation: {
-    title: 'License Activation & Renewal | Nextora POS Support',
-    desc: 'Activate Nextora POS with your annual license key and manage renewals.',
+    title: 'License Activation & Annual Renewal | Nextora Mini POS Support',
+    desc: 'Activate your device with an annual license key and manage seamless yearly renewals.',
   },
   'backup-restore': {
-    title: 'Backup & Restore | Nextora POS Support',
-    desc: 'Export backups of your billing data and restore them on any Nextora POS device.',
+    title: 'Backup & Restore | Nextora Mini POS Support',
+    desc: 'Export complete database backups to local files and restore safely on any supported device.',
+  },
+  troubleshooting: {
+    title: 'Troubleshooting & Common Fixes | Nextora Mini POS Support',
+    desc: 'Solutions for common printer connection issues, activation warnings, and local database recovery.',
   },
   updates: {
-    title: 'Software Updates | Nextora POS Support',
-    desc: 'Check for and install Nextora POS software updates on Desktop and Android.',
+    title: 'Software Updates | Nextora Mini POS Support',
+    desc: 'Check for and install product updates safely while protecting your local billing records.',
   },
 };
 
 const body = {
   'getting-started': `
-    <p>Nextora POS gets your counter billing in three steps: <strong>install</strong>, <strong>activate</strong>, <strong>bill</strong>.</p>
-    <h2>1. Install</h2>
-    <p>Download the version for your device from the official <a href="/download" style="color:var(--accent-ink)">Download</a> page — Desktop for Windows, or the Android APK. Install using the Windows installer or by opening the APK on your device.</p>
-    <h2>2. Activate</h2>
-    <p>Open <strong>License</strong> settings and enter the activation key supplied by Nextora. Activation validates your key over the internet once; after that, billing works online or offline.</p>
-    <h2>3. Set up and bill</h2>
-    <p>Add your items, connect a supported printer if you use one, and take your first bill. Daily billing runs on local data — no internet needed.</p>
-    <h2>Need help?</h2>
-    <p>Email <a href="mailto:support@nextoracreations.co.in" style="color:var(--accent-ink)">support@nextoracreations.co.in</a> or call <a href="tel:+917674981970" style="color:var(--accent-ink)">+91 76749 81970</a>.</p>`,
+    <p>Nextora Mini POS gets your counter up and running in three simple steps: <strong>install</strong>, <strong>activate</strong>, and <strong>bill</strong>.</p>
+    <h2>1. Installation</h2>
+    <p>Download the edition built for your hardware from the official <a href="/download" style="color:var(--accent-ink)">Download</a> page — Nextora Mini POS for Windows (Desktop) or Nextora Mini POS for Android (Google Play / APK). Follow the on-screen installer on Windows or allow installation on Android.</p>
+    <h2>2. License Activation</h2>
+    <p>Launch the app, open <strong>License</strong> settings, and enter the annual activation key provided by Nextora. Activation validates once over the internet to bind your device. Afterward, daily billing operates 100% offline.</p>
+    <h2>3. Setup and Take Your First Bill</h2>
+    <p>Configure your item catalog in <strong>Items</strong>, select your thermal printer in <strong>Printer</strong> settings, and begin billing immediately. All your transactions are saved to your local device database.</p>
+    <h2>Need Assistance?</h2>
+    <p>Contact our support team at <a href="mailto:support@nextoracreations.co.in" style="color:var(--accent-ink)">support@nextoracreations.co.in</a> or phone <a href="tel:+917674981970" style="color:var(--accent-ink)">+91 76749 81970</a>.</p>`,
+
   desktop: `
-    <p>Nextora POS Desktop runs on Windows 10 (64-bit) or newer.</p>
-    <h2>Install</h2>
-    <p>Download the installer from the <a href="/download" style="color:var(--accent-ink)">Download</a> page and run it. Follow the setup wizard and launch Nextora POS from the Start menu or desktop shortcut.</p>
-    <h2>First run</h2>
+    <p>Nextora Mini POS for Windows runs natively on 64-bit Windows 10 and Windows 11.</p>
+    <h2>System Requirements</h2>
     <ul>
-      <li>Activate your license in <strong>License</strong> settings.</li>
-      <li>Add your items in <strong>Items</strong>.</li>
-      <li>Configure your printer in <strong>Printer</strong> settings.</li>
-      <li>Export your first backup in <strong>Backup</strong> settings.</li>
+      <li>Operating System: Windows 10 (64-bit) or newer</li>
+      <li>Memory: 4 GB RAM recommended</li>
+      <li>Storage: 500 MB free space</li>
+      <li>Display: 1366 × 768 or higher</li>
     </ul>
-    <h2>Printer</h2>
-    <p>Connect your ESC/POS thermal printer via USB or serial, install the printer's driver if the manufacturer provides one, then select it in Nextora POS printer settings. See <a href="/support/printers" style="color:var(--accent-ink)">Printer Setup</a>.</p>
-    <h2>Moving to a new PC</h2>
-    <p>Export a backup from the old machine, install Nextora POS on the new one, activate, then import the backup. See <a href="/support/backup-restore" style="color:var(--accent-ink)">Backup &amp; Restore</a>.</p>`,
+    <h2>Installation</h2>
+    <p>Run the official setup package (<code>NextoraMiniPOS-Setup.exe</code>). The installer will set up desktop shortcuts and register the application. Launch the app from the Start menu.</p>
+    <h2>First Run Checklist</h2>
+    <ul>
+      <li>Activate your annual license in <strong>License</strong> settings.</li>
+      <li>Add categories and menu items in <strong>Items</strong>.</li>
+      <li>Connect your ESC/POS thermal printer via USB or COM port and select it in <strong>Printer</strong> settings.</li>
+      <li>Export a baseline backup file in <strong>Backup</strong> settings.</li>
+    </ul>`,
+
   android: `
-    <p>Nextora POS Android runs on Android 8.0 or newer and installs from the official APK.</p>
-    <h2>Install the APK</h2>
-    <ol style="list-style:disc;padding-left:22px;color:var(--ink-2);display:grid;gap:8px;margin-bottom:18px">
-      <li>Download the APK from the <a href="/download" style="color:var(--accent-ink)">Download</a> page on your device.</li>
-      <li>Open the file; when Android asks, allow installs from your browser or file manager.</li>
-      <li>Complete the installation and open Nextora POS.</li>
-    </ol>
-    <div class="note note--warn" style="margin-bottom:20px"><span>Download only from pos.nextoracreations.co.in — never from third-party stores or messaging apps.</span></div>
-    <h2>First run</h2>
+    <p>Nextora Mini POS for Android brings fast, offline billing to smartphones, tablets, and dedicated handheld POS devices running Android 8.0 (Oreo) or newer.</p>
+    <h2>Installation</h2>
+    <p>Install Nextora Mini POS via the official release link on Google Play or through our official APK package available on the <a href="/download" style="color:var(--accent-ink)">Download</a> page.</p>
+    <h2>Permissions</h2>
     <ul>
-      <li>Activate your license in <strong>License</strong> settings.</li>
-      <li>Add your items in <strong>Items</strong>.</li>
-      <li>Pair your Bluetooth printer in Android settings, or connect your Wi-Fi printer to the same network, then select it in <strong>Printer</strong> settings.</li>
-      <li>Export a backup in <strong>Backup</strong> settings.</li>
+      <li><strong>Bluetooth (Nearby Devices):</strong> Required solely to search for and pair with Bluetooth ESC/POS thermal printers.</li>
+      <li><strong>Storage / Documents:</strong> Used when exporting manual database backup files or importing a restoration file.</li>
     </ul>
-    <h2>Printing</h2>
-    <p>Both Bluetooth and Wi-Fi thermal printing are supported where the printer model supports them. See <a href="/support/printers" style="color:var(--accent-ink)">Printer Setup</a>.</p>`,
+    <h2>First Run</h2>
+    <p>Open License settings, enter your annual key, and activate. Turn on your Bluetooth printer, pair it in Android Bluetooth settings, and select the printer inside Nextora Mini POS. You are ready to bill anywhere.</p>`,
+
+  billing: `
+    <p>Nextora Mini POS is designed to streamline counter checkout with minimum keystrokes and zero latency.</p>
+    <h2>Adding and Managing Items</h2>
+    <p>Navigate to <strong>Items</strong> to create your menu or inventory list. You can specify item names, categories, pricing, and tax rates. Organized categories appear as quick-access tabs on the billing screen.</p>
+    <h2>Creating a Bill</h2>
+    <ol style="list-style:decimal;padding-left:22px;color:var(--ink-2);display:grid;gap:8px;margin-bottom:18px">
+      <li>Tap or click items to add them to the current ticket.</li>
+      <li>Adjust quantities or remove items directly from the ticket pane.</li>
+      <li>Select payment mode: <strong>Cash</strong>, <strong>UPI / QR</strong>, or <strong>Card</strong>.</li>
+      <li>Click <strong>Generate Bill / Print</strong>. The sequential invoice is recorded in the local database and immediately printed on your thermal printer.</li>
+    </ol>
+    <h2>Sales Reports & Summaries</h2>
+    <p>View real-time totals on your dashboard: today’s total sales, completed order count, average ticket size, and breakdown across payment methods.</p>`,
+
   printers: `
-    <p>Nextora POS prints receipts to supported thermal printers. Compatibility can vary by model and connection type — test your model before purchase if you can.</p>
-    <h2>Desktop — ESC/POS (USB / serial)</h2>
+    <p>Nextora Mini POS supports receipt printing on thermal printers using standard ESC/POS protocols.</p>
+    <h2>Desktop — ESC/POS (USB / Serial)</h2>
     <ul>
-      <li>Connect the printer to the PC via USB or serial and power it on.</li>
-      <li>Install the manufacturer's driver if provided.</li>
-      <li>In Nextora POS, open <strong>Printer</strong> settings and select the printer.</li>
-      <li>Print a test receipt.</li>
+      <li>Connect your printer via USB or serial cable and turn it on.</li>
+      <li>Install any manufacturer drivers if needed (e.g. for virtual COM port emulation).</li>
+      <li>In Nextora Mini POS, open <strong>Printer</strong> settings, choose your printer port or Windows spooler driver, and click <strong>Test Print</strong>.</li>
     </ul>
-    <h2>Android — Bluetooth</h2>
+    <h2>Android — Bluetooth Thermal Printers</h2>
     <ul>
-      <li>Pair the printer in Android <strong>Settings → Connected devices</strong>.</li>
-      <li>In Nextora POS, open <strong>Printer</strong> settings and select the paired printer.</li>
-      <li>Print a test receipt.</li>
+      <li>Power on your portable thermal printer and put it in pairing mode.</li>
+      <li>Go to Android <strong>Settings → Connected devices → Pair new device</strong> and select your printer (default PINs are usually <code>0000</code> or <code>1234</code>).</li>
+      <li>Open Nextora Mini POS, navigate to <strong>Printer</strong> settings, select the paired Bluetooth printer, and test.</li>
     </ul>
-    <h2>Android — Wi-Fi</h2>
+    <h2>Android — Wi-Fi Network Printers</h2>
     <ul>
-      <li>Connect the printer and the phone to the same Wi-Fi network.</li>
-      <li>Note the printer's IP address (usually in its settings or on a network printout).</li>
-      <li>In Nextora POS printer settings, add the printer by IP.</li>
-      <li>Print a test receipt.</li>
-    </ul>
-    <h2>Troubleshooting</h2>
-    <ul>
-      <li><strong>No output:</strong> confirm the printer is powered, has paper, and the cable/pairing is active.</li>
-      <li><strong>Garbled output:</strong> the printer may not support the ESC/POS commands being sent — confirm the model supports ESC/POS.</li>
-      <li><strong>Slow or failed Wi-Fi printing:</strong> confirm both devices are on the same network and the IP is correct.</li>
+      <li>Ensure both the mobile device and printer are connected to the same local Wi-Fi router.</li>
+      <li>Enter the printer's local IP address (typically <code>192.168.1.xxx</code>) and port <code>9100</code> into the app's printer setup.</li>
     </ul>`,
+
   activation: `
-    <p>Nextora POS uses annual licensing, one license per device.</p>
-    <h2>Activate</h2>
-    <ol style="list-style:disc;padding-left:22px;color:var(--ink-2);display:grid;gap:8px;margin-bottom:18px">
-      <li>Request or purchase a license from Nextora.</li>
-      <li>Receive your activation key for the product and platform you bought.</li>
-      <li>Open <strong>License</strong> settings in the app and enter the key.</li>
-      <li>Activation validates once over the internet — daily billing then works online or offline.</li>
+    <p>Nextora Mini POS uses a straightforward <strong>annual subscription license</strong> model tied per device.</p>
+    <h2>Activating a New Device</h2>
+    <ol style="list-style:decimal;padding-left:22px;color:var(--ink-2);display:grid;gap:8px;margin-bottom:18px">
+      <li>Acquire an annual license key from Nextora Creations.</li>
+      <li>Open <strong>License</strong> in the application settings.</li>
+      <li>Paste or enter your key and click <strong>Activate</strong>.</li>
+      <li>The app contacts Nextora licensing over the internet once to validate and bind your hardware ID.</li>
     </ol>
-    <h2>Check validity</h2>
-    <p>License settings shows your activation status and validity period. The app reminds you as expiry approaches.</p>
-    <h2>Renew</h2>
-    <p>Contact Nextora before expiry to renew. Enter the renewal in License settings to continue — your local data is unaffected by renewals.</p>
-    <h2>If activation fails</h2>
-    <ul>
-      <li>Confirm the device has internet access for the one-time validation.</li>
-      <li>Confirm the key matches the product (Desktop vs Android).</li>
-      <li>Contact support with your key and device details if the problem continues.</li>
-    </ul>`,
+    <h2>Annual Renewals</h2>
+    <p>The app displays non-intrusive renewal reminders 30 days prior to license expiry. Contact Nextora before expiration to renew your subscription. Entering your renewal key instantly extends validity for another 365 days with zero interruption to your local database records.</p>`,
+
   'backup-restore': `
-    <p>Your billing data lives locally on the device. Backups are files you export, keep and restore yourself.</p>
-    <h2>Export a backup</h2>
+    <p>Because all billing records live in the local database on your device, manual backups provide complete peace of mind.</p>
+    <h2>Exporting a Backup</h2>
     <ul>
-      <li><strong>Desktop:</strong> open <strong>Backup</strong> settings and choose a file location.</li>
-      <li><strong>Android:</strong> open <strong>Backup</strong> and export to device storage; share or copy the file somewhere safe.</li>
+      <li><strong>Windows:</strong> Open <strong>Backup</strong> settings, click <strong>Export Backup</strong>, and save the <code>.db</code>/archive file to your hard drive, a USB flash drive, or personal cloud folder.</li>
+      <li><strong>Android:</strong> Open <strong>Backup</strong>, click <strong>Export</strong>, and save to your Documents folder or share via email to yourself.</li>
     </ul>
-    <p>Export regularly — especially before updates, device changes or big menu edits.</p>
-    <h2>Restore a backup</h2>
-    <ol style="list-style:disc;padding-left:22px;color:var(--ink-2);display:grid;gap:8px;margin-bottom:18px">
-      <li>Open <strong>Backup</strong> settings on the target device.</li>
-      <li>Choose the import/restore option and select your backup file.</li>
-      <li>Confirm the restore. The current local data is replaced by the backup's contents.</li>
+    <h2>Restoring a Backup</h2>
+    <ol style="list-style:decimal;padding-left:22px;color:var(--ink-2);display:grid;gap:8px;margin-bottom:18px">
+      <li>In Nextora Mini POS, open <strong>Backup</strong> settings and select <strong>Import / Restore</strong>.</li>
+      <li>Select the previously exported backup file.</li>
+      <li>Confirm restoration. The app reloads all items, prices, and past bills from the backup file.</li>
     </ol>
-    <div class="note note--warn" style="margin-bottom:20px"><span>Restoring replaces current data. If you need what is on the device now, export a fresh backup first.</span></div>
-    <h2>Moving devices</h2>
-    <p>Export from the old device → install and activate on the new device → import the backup. Contact us if your license needs a device change.</p>`,
-  updates: `
-    <p>Both apps can check for supported product updates from inside the app.</p>
-    <h2>Check for updates</h2>
+    <div class="note note--warn" style="margin-bottom:20px"><span><strong>Important:</strong> Restoring a backup overwrites the current local database with the contents of the backup file. Always take a fresh export before restoring.</span></div>`,
+
+  troubleshooting: `
+    <p>Quick troubleshooting steps for common counter questions:</p>
+    <h2>Printer Not Printing</h2>
     <ul>
-      <li><strong>Desktop:</strong> open <strong>Updates</strong> in settings and check for updates. Available updates install through the app.</li>
-      <li><strong>Android:</strong> open <strong>Updates</strong> in settings to check. When a new version is available, download the official APK from this site and install it (your data and license stay on the device).</li>
+      <li>Check paper roll orientation and ensure the thermal paper is facing the right way.</li>
+      <li>Verify the printer is powered on and the status LED is green.</li>
+      <li>For Bluetooth: ensure Bluetooth is turned on, permissions are granted, and no other phone is currently connected to the printer.</li>
+      <li>For USB: ensure the USB cable is firmly plugged in and the driver is active in Windows Device Manager.</li>
     </ul>
-    <h2>Only official sources</h2>
-    <div class="note note--warn" style="margin:16px 0 20px"><span>Install updates only from the in-app update check or from pos.nextoracreations.co.in. Never from third-party stores, messaging apps or shared links.</span></div>
-    <h2>Before you update</h2>
+    <h2>License Shows "Validation Failed"</h2>
     <ul>
-      <li>Export a fresh backup.</li>
-      <li>Note your license status (it carries over — no re-activation needed for normal updates).</li>
+      <li>Ensure the device has active internet access during activation (required only for the one-time check).</li>
+      <li>Verify the key has been typed correctly without extra spaces.</li>
+      <li>Confirm that the key corresponds to the correct platform (Desktop vs Android).</li>
+    </ul>
+    <h2>Database or App Moving to a New Machine</h2>
+    <ul>
+      <li>Always export a fresh backup from the old machine before retirement.</li>
+      <li>Install Nextora Mini POS on the new device, activate the license, and import the backup file.</li>
     </ul>`,
+
+  updates: `
+    <p>We provide regular software updates with performance enhancements and printer compatibility updates.</p>
+    <h2>How to Check for Updates</h2>
+    <ul>
+      <li><strong>In-App:</strong> Open <strong>Settings → Software Updates</strong> and click <strong>Check for Updates</strong>.</li>
+      <li><strong>Website:</strong> Visit <a href="/download" style="color:var(--accent-ink)">pos.nextoracreations.co.in/download</a> or the Releases page.</li>
+    </ul>
+    <h2>Data Safety During Updates</h2>
+    <p>Installing software updates does not erase your local database or your active license. However, as best engineering practice, always export a manual backup before performing any software update.</p>`,
 };
 
 mkdirSync(OUT, { recursive: true });
@@ -188,7 +208,7 @@ for (const [slug, html] of Object.entries(body)) {
     <section class="pagehero">
       <div class="container">
         <nav class="crumbs" aria-label="Breadcrumb">
-          <a href="/">Nextora POS</a><span class="sep">/</span><a href="/support">Support</a><span class="sep">/</span><span aria-current="page">${m.title.split(' — ')[0].split(' |')[0]}</span>
+          <a href="/">Nextora Mini POS</a><span class="sep">/</span><a href="/support">Support</a><span class="sep">/</span><span aria-current="page">${m.title.split(' — ')[0].split(' |')[0]}</span>
         </nav>
         <h1 class="h2">${m.title.split(' — ')[0].split(' |')[0]}</h1>
         <p class="lead">${m.desc}</p>
@@ -198,18 +218,20 @@ for (const [slug, html] of Object.entries(body)) {
       <div class="container">
         <div class="article-grid">
           <nav class="article-nav" aria-label="Support topics">
-            <a href="/support/getting-started">Getting Started</a>
+            <a href="/support/getting-started">Installation</a>
             <a href="/support/desktop">Desktop Setup</a>
             <a href="/support/android">Android Setup</a>
+            <a href="/support/billing">Billing Workflows</a>
             <a href="/support/printers">Printer Setup</a>
-            <a href="/support/activation">License Activation</a>
+            <a href="/support/activation">License &amp; Renewal</a>
             <a href="/support/backup-restore">Backup &amp; Restore</a>
+            <a href="/support/troubleshooting">Troubleshooting</a>
             <a href="/support/updates">Software Updates</a>
           </nav>
           <article class="prose">
             ${html}
             <div class="note" style="margin-top:34px">
-              <span>Still stuck? Email <a href="mailto:support@nextoracreations.co.in" style="color:var(--accent-ink)">support@nextoracreations.co.in</a> or call <a href="tel:+917674981970" style="color:var(--accent-ink)">+91 76749 81970</a>.</span>
+              <span>Need further help? Email <a href="mailto:support@nextoracreations.co.in" style="color:var(--accent-ink)">support@nextoracreations.co.in</a> or call <a href="tel:+917674981970" style="color:var(--accent-ink)">+91 76749 81970</a>.</span>
             </div>
           </article>
         </div>

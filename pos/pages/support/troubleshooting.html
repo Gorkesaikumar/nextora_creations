@@ -3,26 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Backup & Restore | Nextora Mini POS Support</title>
-  <meta name="description" content="Export complete database backups to local files and restore safely on any supported device." />
-  <link rel="canonical" href="https://pos.nextoracreations.co.in/support/backup-restore" />
+  <title>Troubleshooting & Common Fixes | Nextora Mini POS Support</title>
+  <meta name="description" content="Solutions for common printer connection issues, activation warnings, and local database recovery." />
+  <link rel="canonical" href="https://pos.nextoracreations.co.in/support/troubleshooting" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="icon" type="image/png" href="/brand/favicon.png" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/hanken-grotesk-latin.woff2" crossorigin />
   <link rel="stylesheet" href="/src/css/style.css" />
 </head>
-<body data-page="support" data-path="/support/backup-restore">
+<body data-page="support" data-path="/support/troubleshooting">
   <a class="skip" href="#main">Skip to content</a>
   <div id="site-nav"></div>
   <main id="main">
     <section class="pagehero">
       <div class="container">
         <nav class="crumbs" aria-label="Breadcrumb">
-          <a href="/">Nextora Mini POS</a><span class="sep">/</span><a href="/support">Support</a><span class="sep">/</span><span aria-current="page">Backup & Restore</span>
+          <a href="/">Nextora Mini POS</a><span class="sep">/</span><a href="/support">Support</a><span class="sep">/</span><span aria-current="page">Troubleshooting & Common Fixes</span>
         </nav>
-        <h1 class="h2">Backup & Restore</h1>
-        <p class="lead">Export complete database backups to local files and restore safely on any supported device.</p>
+        <h1 class="h2">Troubleshooting & Common Fixes</h1>
+        <p class="lead">Solutions for common printer connection issues, activation warnings, and local database recovery.</p>
       </div>
     </section>
     <section class="section" style="padding-top:0">
@@ -41,19 +41,25 @@
           </nav>
           <article class="prose">
             
-    <p>Because all billing records live in the local database on your device, manual backups provide complete peace of mind.</p>
-    <h2>Exporting a Backup</h2>
+    <p>Quick troubleshooting steps for common counter questions:</p>
+    <h2>Printer Not Printing</h2>
     <ul>
-      <li><strong>Windows:</strong> Open <strong>Backup</strong> settings, click <strong>Export Backup</strong>, and save the <code>.db</code>/archive file to your hard drive, a USB flash drive, or personal cloud folder.</li>
-      <li><strong>Android:</strong> Open <strong>Backup</strong>, click <strong>Export</strong>, and save to your Documents folder or share via email to yourself.</li>
+      <li>Check paper roll orientation and ensure the thermal paper is facing the right way.</li>
+      <li>Verify the printer is powered on and the status LED is green.</li>
+      <li>For Bluetooth: ensure Bluetooth is turned on, permissions are granted, and no other phone is currently connected to the printer.</li>
+      <li>For USB: ensure the USB cable is firmly plugged in and the driver is active in Windows Device Manager.</li>
     </ul>
-    <h2>Restoring a Backup</h2>
-    <ol style="list-style:decimal;padding-left:22px;color:var(--ink-2);display:grid;gap:8px;margin-bottom:18px">
-      <li>In Nextora Mini POS, open <strong>Backup</strong> settings and select <strong>Import / Restore</strong>.</li>
-      <li>Select the previously exported backup file.</li>
-      <li>Confirm restoration. The app reloads all items, prices, and past bills from the backup file.</li>
-    </ol>
-    <div class="note note--warn" style="margin-bottom:20px"><span><strong>Important:</strong> Restoring a backup overwrites the current local database with the contents of the backup file. Always take a fresh export before restoring.</span></div>
+    <h2>License Shows "Validation Failed"</h2>
+    <ul>
+      <li>Ensure the device has active internet access during activation (required only for the one-time check).</li>
+      <li>Verify the key has been typed correctly without extra spaces.</li>
+      <li>Confirm that the key corresponds to the correct platform (Desktop vs Android).</li>
+    </ul>
+    <h2>Database or App Moving to a New Machine</h2>
+    <ul>
+      <li>Always export a fresh backup from the old machine before retirement.</li>
+      <li>Install Nextora Mini POS on the new device, activate the license, and import the backup file.</li>
+    </ul>
             <div class="note" style="margin-top:34px">
               <span>Need further help? Email <a href="mailto:support@nextoracreations.co.in" style="color:var(--accent-ink)">support@nextoracreations.co.in</a> or call <a href="tel:+917674981970" style="color:var(--accent-ink)">+91 76749 81970</a>.</span>
             </div>

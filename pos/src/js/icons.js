@@ -33,6 +33,8 @@ export const ICONS = {
   minus: I('<path d="M5 12h14"/>'),
   phone: I('<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10.5 18.5h3"/>'),
   globe: I('<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/>'),
+  chart: I('<path d="M3 3v18h18"/><path d="M7 16v-4"/><path d="M12 16v-9"/><path d="M17 16v-6"/>'),
+  playstore: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m3.6 1.7 10.8 10.3L3.6 22.3c-.4-.4-.6-1-.6-1.7V3.4c0-.7.2-1.3.6-1.7zm11.9 11.4 2.5-2.4-11.8-6.7 9.3 9.1zm0 1.8L6.2 24l11.8-6.7-2.5-2.4zm3.6-3.4 2.8 1.6c.7.4.7 1.2 0 1.6l-2.8 1.6-2.2-2.1 2.2-2.7z"/></svg>`,
 };
 
 export const icon = (name, cls = '') =>

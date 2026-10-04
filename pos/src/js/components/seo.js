@@ -4,52 +4,52 @@ import { SITE, DESKTOP, ANDROID, FAQS, RELEASES } from '../../data/site.js';
 
 const pageSeo = {
   '/': {
-    title: 'Nextora POS — Offline Billing Software for Windows & Android',
+    title: 'Nextora Mini POS | Offline POS Billing for Windows & Android',
     description: SITE.description,
   },
   '/desktop': {
-    title: 'Nextora POS Desktop — Windows Billing Software | Nextora POS',
-    description: `${DESKTOP.summary} Offline billing, fast item selection, thermal receipt printing and local backups.`,
+    title: 'Nextora Mini POS for Windows — Desktop Billing Software | Nextora Mini POS',
+    description: `${DESKTOP.summary} Offline billing, fast item selection, thermal receipt printing, sales reports and local backups.`,
   },
   '/android': {
-    title: 'Nextora POS Android — Offline Billing App | Nextora POS',
-    description: `${ANDROID.summary} Offline billing, item management, Bluetooth/Wi-Fi thermal printing and backup restore.`,
+    title: 'Nextora Mini POS for Android — Mobile POS Billing App | Nextora Mini POS',
+    description: `${ANDROID.summary} Offline billing, item management, Bluetooth/Wi-Fi thermal printing, sales overview and backup restore.`,
   },
   '/features': {
-    title: 'Features — Offline Billing, Local Data, Thermal Printing | Nextora POS',
-    description: 'Offline-first billing, fast checkout, local data storage, backup & restore, thermal printing and annual licensing across Windows and Android.',
+    title: 'Features — Offline Billing, Local Data, Thermal Printing | Nextora Mini POS',
+    description: 'Offline-first billing, fast checkout, local database storage, backup & restore, thermal printing, sales reports and annual licensing across Windows and Android.',
   },
   '/how-it-works': {
-    title: 'How It Works — Install, Activate, Start Billing | Nextora POS',
-    description: 'Install Nextora POS on Windows or Android, activate your annual license and start billing in three steps.',
+    title: 'How It Works — Install, Activate, Start Billing | Nextora Mini POS',
+    description: 'Install Nextora Mini POS on Windows or Android, activate your annual license and start billing in three steps.',
   },
   '/pricing': {
-    title: 'Pricing — Simple Annual Licensing | Nextora POS',
-    description: 'Nextora POS uses simple annual licensing for Desktop and Android. Request pricing for a single counter or a Desktop + Android bundle.',
+    title: 'Pricing — Simple Annual Licensing | Nextora Mini POS',
+    description: 'Nextora Mini POS uses simple annual licensing for Desktop and Android. Request pricing for a single counter or a Desktop + Android bundle.',
   },
   '/download': {
-    title: 'Download — Nextora POS for Windows & Android',
-    description: 'Download Nextora POS Desktop for Windows or the Nextora POS Android APK from the official Nextora release source. System requirements and installation guides included.',
+    title: 'Download — Nextora Mini POS for Windows & Android',
+    description: 'Download Nextora Mini POS for Windows and Android from the official Nextora release sources. System requirements and setup guides included.',
   },
   '/releases': {
-    title: 'Releases — Nextora POS Version History',
-    description: 'Official Nextora POS release history and software updates for Windows and Android.',
+    title: 'Releases — Nextora Mini POS Version History',
+    description: 'Official Nextora Mini POS release history and software updates for Windows and Android.',
   },
   '/support': {
-    title: 'Support — Setup, Printing, Licensing & Backups | Nextora POS',
+    title: 'Support — Setup, Printing, Licensing & Backups | Nextora Mini POS',
     description: 'Guides for getting started, desktop and Android setup, printer configuration, license activation, backup & restore and software updates.',
   },
   '/faq': {
-    title: 'FAQ — Offline Billing, Printers, Licensing & Backups | Nextora POS',
+    title: 'FAQ — Offline Billing, Printers, Licensing & Backups | Nextora Mini POS',
     description: 'Answers about offline operation, supported printers, license activation and renewal, backups and moving devices.',
   },
   '/contact': {
-    title: 'Contact Sales & Support | Nextora POS',
-    description: 'Talk to Nextora about Nextora POS — request pricing, a demo or support for your business.',
+    title: 'Contact Sales & Support | Nextora Mini POS',
+    description: 'Talk to Nextora about Nextora Mini POS — request pricing, a demo or support for your business.',
   },
-  '/privacy': { title: 'Privacy Policy | Nextora POS', description: 'How Nextora POS and pos.nextoracreations.co.in handle information.' },
-  '/terms': { title: 'Terms of Service | Nextora POS', description: 'Terms for using Nextora POS and this website.' },
-  '/license': { title: 'License Terms | Nextora POS', description: 'Nextora POS annual license terms: activation, devices, renewal and data responsibility.' },
+  '/privacy': { title: 'Privacy Policy | Nextora Mini POS', description: 'Privacy policy for Nextora Mini POS (Android and Desktop) and website. Covers local data storage and licensing communications.' },
+  '/terms': { title: 'Terms of Service | Nextora Mini POS', description: 'Terms of Service and licensing conditions for Nextora Mini POS.' },
+  '/license': { title: 'License Terms | Nextora Mini POS', description: 'Nextora Mini POS annual license terms: activation, devices, renewal and data responsibility.' },
 };
 
 const UNINDEXED = new Set(['/privacy', '/terms', '/license']);
@@ -61,14 +61,25 @@ function orgLd() {
     '@id': `${SITE.companyUrl}/#organization`,
     name: SITE.company,
     url: SITE.companyUrl,
-    logo: `${SITE.companyUrl}/logo.webp`,
+    logo: `${SITE.companyUrl}/logo.png`,
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: SITE.phone.replace(/\s/g, ''),
       email: SITE.email,
-      contactType: 'sales',
+      contactType: 'customer support',
       availableLanguage: 'English',
     },
+  };
+}
+
+function webSiteLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE.url}/#website`,
+    name: SITE.name,
+    url: SITE.url,
+    publisher: { '@id': `${SITE.companyUrl}/#organization` },
   };
 }
 
@@ -77,9 +88,9 @@ function appLd() {
   return [
     {
       '@type': 'SoftwareApplication',
-      name: 'Nextora POS Desktop',
+      name: 'Nextora Mini POS for Windows',
       applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Windows',
+      operatingSystem: 'Windows 10, Windows 11',
       description: DESKTOP.summary,
       softwareVersion: RELEASES.desktop.version || undefined,
       offers: offer,
@@ -88,9 +99,9 @@ function appLd() {
     },
     {
       '@type': 'SoftwareApplication',
-      name: 'Nextora POS Android',
-      applicationCategory: 'MobileApplication',
-      operatingSystem: 'Android',
+      name: 'Nextora Mini POS for Android',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Android 8.0 and above',
       description: ANDROID.summary,
       softwareVersion: RELEASES.android.version || undefined,
       offers: offer,
@@ -162,11 +173,11 @@ export function injectSEO() {
 
   /* JSON-LD — skip entirely on legal pages */
   if (UNINDEXED.has(path)) return;
-  const ld = [orgLd(), ...appLd()];
+  const ld = [orgLd(), webSiteLd(), ...appLd()];
   if (path === '/' || path === '/faq') ld.push(faqLd());
   if (path !== '/') {
     const parts = path.split('/').filter(Boolean);
-    const labels = ['Nextora POS', ...parts.map((p) => p.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))];
+    const labels = ['Nextora Mini POS', ...parts.map((p) => p.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))];
     ld.push(crumbsLd(labels));
   }
   const s = d.createElement('script');

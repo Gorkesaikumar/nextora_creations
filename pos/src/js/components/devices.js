@@ -19,7 +19,7 @@ export const DESKTOP_SHOT = {
   w: 1492,
   h: 886,
   ratio: '1492 / 886',
-  alt: 'Nextora POS Desktop dashboard showing Today’s sales, Today’s orders, Average order, Cancelled bills, payment breakdown and billing shortcuts',
+  alt: 'Nextora Mini POS Windows dashboard showing Today’s sales, Today’s orders, Average order, Cancelled bills, payment breakdown and billing shortcuts',
 };
 
 export const ANDROID_SHOT = {
@@ -28,7 +28,7 @@ export const ANDROID_SHOT = {
   w: 779,
   h: 1600,
   ratio: '779 / 1600',
-  alt: 'Nextora POS Android dashboard showing Nextora Cafe, License Active, welcome header, sales summary, payment breakdown and bottom navigation',
+  alt: 'Nextora Mini POS Android dashboard showing Nextora Cafe, License Active, welcome header, sales summary, payment breakdown and bottom navigation',
 };
 
 function shotImg(shot, { eager = false, sizes } = {}) {

@@ -63,13 +63,13 @@ export function renderFooter() {
       <div class="footer__grid">
         <div class="footer__brand">
           <img src="/brand/logo.png" alt="" width="38" height="38">
-          <p class="name">Nextora POS</p>
-          <p>Billing that keeps working. ${SITE.companyPos}</p>
+          <p class="name">Nextora Mini POS</p>
+          <p>Simple billing. Even when the internet isn't. ${SITE.companyPos}</p>
         </div>
         ${COLS.map(col).join('')}
       </div>
       <div class="footer__legal">
-        <span>© <span data-year>2026</span> ${SITE.company}. Nextora POS is a product of ${SITE.company}.</span>
+        <span>© <span data-year>2026</span> ${SITE.company}. Nextora Mini POS is a product of ${SITE.company}.</span>
         <span>
           <a href="mailto:${SITE.email}">${SITE.email}</a>
           &nbsp;·&nbsp;

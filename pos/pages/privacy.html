@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Privacy Policy | Nextora POS</title>
-  <meta name="description" content="How Nextora POS and pos.nextoracreations.co.in handle information." />
-  <meta name="robots" content="noindex, follow" />
+  <title>Privacy Policy | Nextora Mini POS</title>
+  <meta name="description" content="Official Privacy Policy for Nextora Mini POS (Android and Windows) and pos.nextoracreations.co.in. Transparent details on local data storage, licensing, and device communication." />
+  <link rel="canonical" href="https://pos.nextoracreations.co.in/privacy" />
+  <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="icon" type="image/png" href="/brand/favicon.png" />
   <link rel="stylesheet" href="/src/css/style.css" />
@@ -18,59 +19,120 @@
     <section class="pagehero">
       <div class="container">
         <nav class="crumbs" aria-label="Breadcrumb">
-          <a href="/">Nextora POS</a><span class="sep">/</span><span aria-current="page">Privacy</span>
+          <a href="/">Nextora Mini POS</a><span class="sep">/</span><span aria-current="page">Privacy Policy</span>
         </nav>
         <h1 class="h2">Privacy Policy.</h1>
-        <p class="updated">Last updated: October 2026</p>
+        <p class="updated">Effective Date: October 2026 · Version 1.1</p>
       </div>
     </section>
 
     <section class="section" style="padding-top:0">
-      <div class="container">
+      <div class="container container--narrow">
         <div class="prose">
-          <p>This policy explains what information the Nextora POS website and the Nextora POS applications handle. Nextora POS is a product of Nextora Creations ("Nextora", "we").</p>
+          <p>This Privacy Policy explains how <strong>Nextora Creations</strong> ("Nextora", "we", "us", or "our") handles information in connection with the <strong>Nextora Mini POS</strong> software applications (including the Android mobile application and Windows desktop software) and the official product website at <a href="https://pos.nextoracreations.co.in" style="color:var(--accent-ink)">https://pos.nextoracreations.co.in</a>.</p>
 
-          <h2>Website</h2>
-          <p>This website is designed to work without accounts. We do not require sign-in, and we do not sell personal information.</p>
+          <p>Nextora Mini POS is designed from the ground up as an <strong>offline-first</strong> commercial billing solution. We believe merchants should retain full ownership and control of their everyday commercial records.</p>
+
+          <hr style="border:0;border-top:1px solid var(--line);margin:32px 0" />
+
+          <h2>1. Fundamental Architecture: Local Data vs. Transmitted Data</h2>
+          <p>To provide full transparency, we strictly distinguish between two categories of information:</p>
           <ul>
-            <li><strong>Contact and pricing forms:</strong> when you submit a form, the details you enter (name, email, phone, business details) are sent to Nextora so we can respond. We use them only to handle your request.</li>
-            <li><strong>Analytics:</strong> we use Google Analytics to understand aggregate usage of this website (pages viewed, approximate location, device type). This does not identify individual users to us and does not cover the applications themselves.</li>
-            <li><strong>Downloads:</strong> download links point to files hosted by Nextora. We do not add trackers to downloads.</li>
+            <li><strong>Data Stored Locally on Your Device:</strong> All everyday operational billing data — item catalogs, menus, pricing, customer bills, transaction logs, sales summaries, and printer configurations — is stored exclusively in your device's local application database. This data is <strong>never transmitted</strong> to Nextora servers, cloud platforms, or third parties.</li>
+            <li><strong>Data Transmitted to Nextora / Network Services:</strong> Only minimal technical information necessary for software licensing verification, annual license renewal, in-app software update checks, and customer-initiated website inquiries is ever transmitted over the network.</li>
           </ul>
 
-          <h2>The applications</h2>
-          <p>Nextora POS Desktop and Nextora POS Android are designed around local data storage for core billing records.</p>
+          <h2>2. Information Handled by the Applications</h2>
+
+          <h3>A. Operational Business &amp; Billing Data (Stored Locally Only)</h3>
+          <p>When you configure and use Nextora Mini POS, you may enter:</p>
           <ul>
-            <li><strong>Local data:</strong> your items, bills and related billing records are stored on your device in the application's local database. We do not receive copies of your billing data.</li>
-            <li><strong>Backups:</strong> backups are files you export and control. They stay wherever you put them.</li>
+            <li><strong>Business Profile Information:</strong> Business name, store address, contact telephone, tax identifier (e.g. GST number), and custom header/footer messages for receipts.</li>
+            <li><strong>Catalog &amp; Item Records:</strong> Item names, categories, pricing, unit of measure, and active inventory status.</li>
+            <li><strong>Billing &amp; Transaction Details:</strong> Sequenced bill/invoice numbers, date and timestamps, line items purchased, subtotal, tax amount, discounts, payment mode (Cash, UPI, Card), and order status.</li>
+            <li><strong>Optional Customer Contact on Bills:</strong> If your counter workflow records a customer name or mobile number on a receipt, this entry resides solely inside the local bill record on your device.</li>
+          </ul>
+          <p><strong>Storage location:</strong> This information is stored in an encrypted/sandboxed SQLite or local data file within your operating system's private application directory. Nextora has no access to your sales numbers, customer contacts, or catalog data.</p>
+
+          <h3>B. Device Information &amp; Licensing Identifier (Transmitted for License Validation)</h3>
+          <p>Nextora Mini POS is licensed on an <strong>annual subscription</strong> basis per device. To activate and bind your annual license key to your hardware, the application transmits:</p>
+          <ul>
+            <li><strong>License Activation Key:</strong> The alphanumeric key provided upon purchase or trial issuance.</li>
+            <li><strong>Device Hardware Identifier:</strong> A non-reversible cryptographic hash derived from hardware identifiers (such as Android ID on Android or motherboard/OS GUID on Windows) used solely to prevent unauthorized activation across multiple devices.</li>
+            <li><strong>Application Metadata:</strong> App version, operating system version, and activation timestamp.</li>
+          </ul>
+          <p>This technical validation occurs during initial setup and periodic license status checks. It does not contain any operational billing or customer data.</p>
+
+          <h3>C. Backup Files</h3>
+          <p>Nextora Mini POS provides a manual database backup export tool. Backups are exported as local archive files to a directory or storage drive selected by the user. You own and control these files. We strongly recommend storing backup files securely.</p>
+
+          <h3>D. Hardware &amp; Printer Connections</h3>
+          <p>Nextora Mini POS connects to thermal receipt printers:</p>
+          <ul>
+            <li><strong>Android (Bluetooth Printing):</strong> Requires Android Bluetooth permissions (`BLUETOOTH_CONNECT`, `BLUETOOTH_SCAN`) strictly to discover and transmit raw ESC/POS commands directly to your paired thermal printer. No data leaves the local Bluetooth connection.</li>
+            <li><strong>Android (Wi-Fi / Network Printing):</strong> Requires local network permissions strictly to transmit print jobs to the IP address of your receipt printer on your local Wi-Fi router.</li>
+            <li><strong>Windows Desktop (USB / Serial Printing):</strong> Communicates directly with local COM, USB, or Windows spooler ports. No print data is routed outside your PC.</li>
           </ul>
 
-          <h2>Connectivity in the applications</h2>
-          <ul>
-            <li><strong>License activation and renewal:</strong> the app contacts Nextora's licensing service to validate your key. This transmits the license key and device identifiers needed for validation.</li>
-            <li><strong>Software updates:</strong> the update check contacts Nextora's update service to learn whether a newer version is available.</li>
-          </ul>
-          <p>Daily billing, item management, bill generation and receipt printing are designed to work without an internet connection.</p>
+          <h3>E. Network Communication</h3>
+          <p>The applications connect to the internet <strong>only</strong> for the following explicit operations:</p>
+          <ol>
+            <li>One-time annual license activation and periodic license validity verification.</li>
+            <li>Checking our update server to notify you if an updated software build or security patch is available.</li>
+            <li>User-initiated technical support or error report transmissions, if explicitly triggered.</li>
+          </ol>
+          <p><strong>Daily billing, checkout, menu management, and receipt printing operate entirely offline without requiring any active internet connection.</strong></p>
 
-          <h2>What we do not do</h2>
+          <h2>3. Third-Party Services &amp; Advertising</h2>
           <ul>
-            <li>We do not collect or store your customers' personal data on our servers.</li>
-            <li>We do not embed advertising or third-party ad trackers in the applications.</li>
-            <li>We do not sell information to anyone.</li>
-          </ul>
-
-          <h2>Data security</h2>
-          <p>Because billing data is stored locally, you control it. We recommend regular backups and device security (screen locks, disk encryption) as good practice. No system can guarantee absolute security, and we make no such claim.</p>
-
-          <h2>Your choices</h2>
-          <ul>
-            <li>You can opt out of Google Analytics for this website using your browser settings or Google's opt-out tools.</li>
-            <li>To request deletion of contact details you have shared with us, email us and we will delete them.</li>
+            <li><strong>No Ad Networks:</strong> Nextora Mini POS does not contain third-party advertising SDKs, in-app advertisements, or marketing trackers.</li>
+            <li><strong>No Third-Party Analytics in App:</strong> The mobile and desktop billing applications do not run behavioral analytics or telemetry SDKs.</li>
+            <li><strong>No Data Brokering:</strong> We never sell, rent, monetize, or disclose your data to third parties.</li>
           </ul>
 
-          <h2>Contact</h2>
-          <p>Questions about this policy: <a href="mailto:support@nextoracreations.co.in" style="color:var(--accent-ink)">support@nextoracreations.co.in</a> · <a href="tel:+917674981970" style="color:var(--accent-ink)">+91 76749 81970</a>.</p>
-          <p>Nextora POS is a product of Nextora Creations. Company policies: <a href="https://nextoracreations.co.in" target="_blank" rel="noopener noreferrer" style="color:var(--accent-ink)">nextoracreations.co.in</a>.</p>
+          <h2>4. Information Handled on Our Website (pos.nextoracreations.co.in)</h2>
+          <p>When you visit this product website:</p>
+          <ul>
+            <li><strong>Inquiry &amp; Demo Forms:</strong> If you submit our contact or pricing request form, we collect the details you enter (your name, email address, phone number, and message). This data is securely posted to our enterprise lead intake endpoint (Google Apps Script) solely to allow our team to answer your commercial inquiry.</li>
+            <li><strong>Analytics &amp; Server Logs:</strong> Standard web server access logs (IP address, user-agent, pages requested) are recorded for security and DDoS defense. If aggregated web analytics (e.g. Google Analytics) is configured, it records anonymous pageview traffic on the website only — never from inside the billing apps.</li>
+            <li><strong>Cookies:</strong> This website does not use tracking cookies for advertising. Essential session cookies may be used if technical features require them.</li>
+          </ul>
+
+          <h2>5. Data Retention &amp; Deletion</h2>
+          <ul>
+            <li><strong>Local Application Data:</strong> Retained on your device indefinitely until you choose to delete records within the app, clear application storage via system settings, or uninstall Nextora Mini POS.</li>
+            <li><strong>Server Licensing Records:</strong> Maintained for the duration of your active license and as required by Indian commercial, tax, and accounting statutory obligations.</li>
+            <li><strong>Contact Submissions:</strong> Retained while actively corresponding with you. You may request deletion of your inquiry contact details at any time by emailing us.</li>
+          </ul>
+
+          <h2>6. Data Security</h2>
+          <p>We implement appropriate technical safeguards across our services. However, because operational billing records reside on your physical hardware, overall data protection depends largely on device-level security. We advise all merchants to:</p>
+          <ul>
+            <li>Protect devices with screen passcodes, PINs, or biometric locks.</li>
+            <li>Enable device storage encryption.</li>
+            <li>Regularly export and store backup files on separate physical or cloud storage you control.</li>
+          </ul>
+          <p>Please note that no hardware, electronic storage, or transmission channel can be guaranteed to be 100% immune from security vulnerabilities, and we do not make claims of absolute infallibility.</p>
+
+          <h2>7. Children's Privacy</h2>
+          <p>Nextora Mini POS is commercial point-of-sale software designed for commercial businesses, stores, and restaurants. It is not marketed to or intended for use by children under the age of 13 (or under 16 in applicable jurisdictions).</p>
+
+          <h2>8. Changes to this Privacy Policy</h2>
+          <p>We may update this Privacy Policy from time to time to reflect product enhancements, statutory compliance, or platform requirements (including Google Play policies). When changes occur, the updated policy will be published at <a href="https://pos.nextoracreations.co.in/privacy" style="color:var(--accent-ink)">https://pos.nextoracreations.co.in/privacy</a> with a revised effective date.</p>
+
+          <h2>9. Public Accessibility</h2>
+          <p>This privacy policy is publicly accessible at all times without requiring account registration, sign-in, activation keys, payment, cookie consent walls, or software installation.</p>
+
+          <h2>10. Contact Us</h2>
+          <p>If you have any questions, concerns, or requests regarding this Privacy Policy, please contact Nextora Creations:</p>
+          <div class="note" style="margin-top:18px">
+            <p><strong>Nextora Creations</strong><br />
+            Product: Nextora Mini POS<br />
+            Email: <a href="mailto:support@nextoracreations.co.in" style="color:var(--accent-ink)">support@nextoracreations.co.in</a><br />
+            Phone / WhatsApp: <a href="tel:+917674981970" style="color:var(--accent-ink)">+91 76749 81970</a><br />
+            Company Website: <a href="https://nextoracreations.co.in" target="_blank" rel="noopener noreferrer" style="color:var(--accent-ink)">https://nextoracreations.co.in</a><br />
+            Product Website: <a href="https://pos.nextoracreations.co.in" style="color:var(--accent-ink)">https://pos.nextoracreations.co.in</a></p>
+          </div>
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
 
-const siteUrl = (process.env.VITE_SITE_URL || 'https://pos.nextoracreations.co.in').replace(/\/$/, '');
+const siteUrl = (process.env.VITE_SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://pos.nextoracreations.co.in').replace(/\/$/, '');
 const dist = resolve(root, 'dist');
 
 if (!existsSync(dist)) {

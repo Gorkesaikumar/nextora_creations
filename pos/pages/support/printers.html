@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Printer Setup — ESC/POS, Bluetooth & Wi-Fi | Nextora POS Support</title>
-  <meta name="description" content="Connect supported thermal printers to Nextora POS on Desktop and Android." />
+  <title>Thermal Printer Setup — ESC/POS, Bluetooth & Wi-Fi | Nextora Mini POS Support</title>
+  <meta name="description" content="Connect supported ESC/POS USB, serial, Bluetooth and Wi-Fi thermal printers." />
   <link rel="canonical" href="https://pos.nextoracreations.co.in/support/printers" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#ffffff" />
@@ -19,55 +19,48 @@
     <section class="pagehero">
       <div class="container">
         <nav class="crumbs" aria-label="Breadcrumb">
-          <a href="/">Nextora POS</a><span class="sep">/</span><a href="/support">Support</a><span class="sep">/</span><span aria-current="page">Printer Setup</span>
+          <a href="/">Nextora Mini POS</a><span class="sep">/</span><a href="/support">Support</a><span class="sep">/</span><span aria-current="page">Thermal Printer Setup</span>
         </nav>
-        <h1 class="h2">Printer Setup</h1>
-        <p class="lead">Connect supported thermal printers to Nextora POS on Desktop and Android.</p>
+        <h1 class="h2">Thermal Printer Setup</h1>
+        <p class="lead">Connect supported ESC/POS USB, serial, Bluetooth and Wi-Fi thermal printers.</p>
       </div>
     </section>
     <section class="section" style="padding-top:0">
       <div class="container">
         <div class="article-grid">
           <nav class="article-nav" aria-label="Support topics">
-            <a href="/support/getting-started">Getting Started</a>
+            <a href="/support/getting-started">Installation</a>
             <a href="/support/desktop">Desktop Setup</a>
             <a href="/support/android">Android Setup</a>
+            <a href="/support/billing">Billing Workflows</a>
             <a href="/support/printers">Printer Setup</a>
-            <a href="/support/activation">License Activation</a>
+            <a href="/support/activation">License &amp; Renewal</a>
             <a href="/support/backup-restore">Backup &amp; Restore</a>
+            <a href="/support/troubleshooting">Troubleshooting</a>
             <a href="/support/updates">Software Updates</a>
           </nav>
           <article class="prose">
             
-    <p>Nextora POS prints receipts to supported thermal printers. Compatibility can vary by model and connection type — test your model before purchase if you can.</p>
-    <h2>Desktop — ESC/POS (USB / serial)</h2>
+    <p>Nextora Mini POS supports receipt printing on thermal printers using standard ESC/POS protocols.</p>
+    <h2>Desktop — ESC/POS (USB / Serial)</h2>
     <ul>
-      <li>Connect the printer to the PC via USB or serial and power it on.</li>
-      <li>Install the manufacturer's driver if provided.</li>
-      <li>In Nextora POS, open <strong>Printer</strong> settings and select the printer.</li>
-      <li>Print a test receipt.</li>
+      <li>Connect your printer via USB or serial cable and turn it on.</li>
+      <li>Install any manufacturer drivers if needed (e.g. for virtual COM port emulation).</li>
+      <li>In Nextora Mini POS, open <strong>Printer</strong> settings, choose your printer port or Windows spooler driver, and click <strong>Test Print</strong>.</li>
     </ul>
-    <h2>Android — Bluetooth</h2>
+    <h2>Android — Bluetooth Thermal Printers</h2>
     <ul>
-      <li>Pair the printer in Android <strong>Settings → Connected devices</strong>.</li>
-      <li>In Nextora POS, open <strong>Printer</strong> settings and select the paired printer.</li>
-      <li>Print a test receipt.</li>
+      <li>Power on your portable thermal printer and put it in pairing mode.</li>
+      <li>Go to Android <strong>Settings → Connected devices → Pair new device</strong> and select your printer (default PINs are usually <code>0000</code> or <code>1234</code>).</li>
+      <li>Open Nextora Mini POS, navigate to <strong>Printer</strong> settings, select the paired Bluetooth printer, and test.</li>
     </ul>
-    <h2>Android — Wi-Fi</h2>
+    <h2>Android — Wi-Fi Network Printers</h2>
     <ul>
-      <li>Connect the printer and the phone to the same Wi-Fi network.</li>
-      <li>Note the printer's IP address (usually in its settings or on a network printout).</li>
-      <li>In Nextora POS printer settings, add the printer by IP.</li>
-      <li>Print a test receipt.</li>
-    </ul>
-    <h2>Troubleshooting</h2>
-    <ul>
-      <li><strong>No output:</strong> confirm the printer is powered, has paper, and the cable/pairing is active.</li>
-      <li><strong>Garbled output:</strong> the printer may not support the ESC/POS commands being sent — confirm the model supports ESC/POS.</li>
-      <li><strong>Slow or failed Wi-Fi printing:</strong> confirm both devices are on the same network and the IP is correct.</li>
+      <li>Ensure both the mobile device and printer are connected to the same local Wi-Fi router.</li>
+      <li>Enter the printer's local IP address (typically <code>192.168.1.xxx</code>) and port <code>9100</code> into the app's printer setup.</li>
     </ul>
             <div class="note" style="margin-top:34px">
-              <span>Still stuck? Email <a href="mailto:support@nextoracreations.co.in" style="color:var(--accent-ink)">support@nextoracreations.co.in</a> or call <a href="tel:+917674981970" style="color:var(--accent-ink)">+91 76749 81970</a>.</span>
+              <span>Need further help? Email <a href="mailto:support@nextoracreations.co.in" style="color:var(--accent-ink)">support@nextoracreations.co.in</a> or call <a href="tel:+917674981970" style="color:var(--accent-ink)">+91 76749 81970</a>.</span>
             </div>
           </article>
         </div>

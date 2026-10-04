@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nextora POS Android — Offline Billing App | Nextora POS</title>
-  <meta name="description" content="Run essential billing directly from Android and print receipts using supported thermal printers. Offline billing, item management, Bluetooth/Wi-Fi printing and backup restore." />
+  <title>Nextora Mini POS for Android — Mobile POS Billing App | Nextora Mini POS</title>
+  <meta name="description" content="Nextora Mini POS for Android: run offline mobile billing and print receipts using supported Bluetooth or Wi-Fi thermal printers. Local database, item management, and backups." />
   <link rel="canonical" href="https://pos.nextoracreations.co.in/android" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="theme-color" content="#0c1310" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Nextora POS" />
-  <meta property="og:title" content="Nextora POS Android — Offline Billing App" />
-  <meta property="og:description" content="Your counter. In your hand. Offline billing, item management, Bluetooth/Wi-Fi thermal printing and backup restore." />
+  <meta property="og:site_name" content="Nextora Mini POS" />
+  <meta property="og:title" content="Nextora Mini POS for Android — Mobile POS Billing App" />
+  <meta property="og:description" content="Your counter in your hand. Offline billing, item management, Bluetooth/Wi-Fi thermal printing and backup restore." />
   <meta property="og:url" content="https://pos.nextoracreations.co.in/android" />
   <meta property="og:image" content="https://pos.nextoracreations.co.in/brand/og-cover.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Nextora POS Android — Offline Billing App" />
-  <meta name="twitter:description" content="Your counter. In your hand. Offline billing, item management, Bluetooth/Wi-Fi thermal printing and backup restore." />
+  <meta name="twitter:title" content="Nextora Mini POS for Android — Mobile POS Billing App" />
+  <meta name="twitter:description" content="Your counter in your hand. Offline billing, item management, Bluetooth/Wi-Fi thermal printing and backup restore." />
   <meta name="twitter:image" content="https://pos.nextoracreations.co.in/brand/og-cover.png" />
   <link rel="icon" type="image/png" href="/brand/favicon.png" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/hanken-grotesk-latin.woff2" crossorigin />
@@ -31,17 +31,16 @@
     <section class="hero" style="padding-bottom:clamp(36px,5vw,64px)">
       <div class="container">
         <nav class="crumbs" aria-label="Breadcrumb">
-          <a href="/">Nextora POS</a><span class="sep">/</span><span aria-current="page">Android</span>
+          <a href="/">Nextora Mini POS</a><span class="sep">/</span><span aria-current="page">Android</span>
         </nav>
         <div class="split" style="align-items:end">
           <div class="hero__head" style="text-align:left;margin:0;max-width:640px">
-            <span class="chip chip--accent" data-reveal><span class="dot" style="background:var(--accent)"></span> Nextora POS Android</span>
+            <span class="chip chip--accent" data-reveal><span class="dot" style="background:var(--accent)"></span> Nextora Mini POS for Android</span>
             <h1 class="display" data-reveal style="--d:.06s;font-size:clamp(2.6rem,1.2rem+4.6vw,4.6rem)">Your counter.<br /><span class="text-accent">In your hand.</span></h1>
-            <p class="lead" data-reveal style="--d:.12s">Run essential billing directly from Android and print receipts using supported thermal printers — at the counter or on the move.</p>
-            <div class="btn-row" style="--d:.18s" data-reveal>
-              <a class="btn btn--primary" href="/download" data-track="hero_get_pos">Get Android</a>
-              <a class="btn btn--ghost" href="/pricing" data-track="pricing_view">Request Pricing</a>
-            </div>
+            <p class="lead" data-reveal style="--d:.12s">Run essential billing directly from Android and print receipts using supported thermal printers — at the counter, at tables, or on the move.</p>
+            
+            <div id="ph-android-play-cta" class="btn-row" style="--d:.18s" data-reveal></div>
+
             <div class="hero__platforms" style="justify-content:flex-start;--d:.24s" data-reveal>
               <span class="chip"><i data-icon="device"></i> Android 8.0+</span>
               <span class="chip"><i data-icon="offline"></i> Offline billing</span>
@@ -58,73 +57,106 @@
       <div class="container">
         <div class="split">
           <div data-reveal>
-            <span class="kicker">What it does</span>
+            <span class="kicker">Core Capabilities</span>
             <h2 class="h2" style="font-size:var(--fs-h3)">Everything essential, in your pocket</h2>
             <p class="lead" style="font-size:1.05rem;margin-top:14px">
-              The screens your counter needs — billing, items, bill preview, printing, backups and licensing.
+              The screens and tools your counter needs every day — billing, item management, bill preview, thermal printing, backups, sales summaries, and annual licensing.
             </p>
             <div class="chips-row" style="margin-top:20px">
               <span class="chip">Billing</span><span class="chip">Items</span><span class="chip">Bill preview</span>
-              <span class="chip">Printer</span><span class="chip">Backup / restore</span><span class="chip">License</span>
+              <span class="chip">Sales summary</span><span class="chip">Printer</span><span class="chip">Backup / restore</span>
+              <span class="chip">License</span>
             </div>
           </div>
           <ul class="flist" data-reveal style="--d:.1s;align-self:center;max-width:520px;margin-inline:auto;width:100%">
             <li><i data-icon="check"></i><span><strong>Offline billing</strong> — create bills from locally stored items without depending on connectivity.</span></li>
-            <li><i data-icon="check"></i><span><strong>Item management</strong> — maintain your item list with prices ready for quick selection.</span></li>
-            <li><i data-icon="check"></i><span><strong>Bill creation</strong> — build bills line by line with live totals as you go.</span></li>
+            <li><i data-icon="check"></i><span><strong>Item catalog</strong> — maintain your item list and prices ready for quick counter selection.</span></li>
+            <li><i data-icon="check"></i><span><strong>Live bill totals</strong> — build bills line by line with automatic totals, taxes, and payment mode options.</span></li>
             <li><i data-icon="check"></i><span><strong>Bluetooth thermal printing</strong> — print receipts on supported Bluetooth thermal printers, where supported.</span></li>
-            <li><i data-icon="check"></i><span><strong>Wi-Fi thermal printing</strong> — print to supported network thermal printers over Wi-Fi, where supported.</span></li>
-            <li><i data-icon="check"></i><span><strong>Backup export</strong> — export a backup file of your billing data whenever you choose.</span></li>
-            <li><i data-icon="check"></i><span><strong>Backup import &amp; restore</strong> — import a backup file to restore your items and billing data.</span></li>
-            <li><i data-icon="check"></i><span><strong>License activation</strong> — activate with your annual license key and check for updates in-app.</span></li>
+            <li><i data-icon="check"></i><span><strong>Wi-Fi network printing</strong> — send print jobs to supported network thermal printers over local Wi-Fi.</span></li>
+            <li><i data-icon="check"></i><span><strong>Daily sales overview</strong> — track today’s sales, order volume, and payment breakdowns directly on mobile.</span></li>
+            <li><i data-icon="check"></i><span><strong>Backup export &amp; restore</strong> — export your billing database to local storage and restore anytime.</span></li>
+            <li><i data-icon="check"></i><span><strong>Annual activation</strong> — activate once online with your annual key; daily operations run 100% offline.</span></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- SMALL SCREEN SERIOUS BILLING -->
+    <!-- REAL APPLICATION SHOWCASE -->
     <section class="section section--night">
       <div class="container">
         <div class="split">
           <div data-reveal><div id="ph-android-shot"></div></div>
           <div data-reveal style="--d:.1s">
-            <span class="kicker">Billing screen</span>
+            <span class="kicker">Live Application Interface</span>
             <h2 class="h2" style="font-size:var(--fs-h3)">Small screen.<br />Serious billing.</h2>
             <p class="lead" style="font-size:1.05rem;margin-top:14px">
-              Items, quantities and totals in one thumb-friendly flow. Build the bill as you go and
-              generate it when the customer is ready.
+              Items, quantities and totals in one thumb-friendly flow. Build the bill as you go, choose Cash, UPI, or Card, and generate sequential receipts instantly.
             </p>
             <div class="btn-row" style="margin-top:24px">
-              <a class="btn btn--night btn--sm" href="/download">Get Android</a>
-              <a class="btn btn--ghost-night btn--sm" href="/support/android">Setup guide</a>
+              <a class="btn btn--night btn--sm" href="/download">Download Options</a>
+              <a class="btn btn--ghost-night btn--sm" href="/support/android">Setup Guide</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- BACKUP HONESTY -->
+    <!-- THERMAL PRINTING SECTION -->
     <section class="section section--soft">
       <div class="container">
         <div class="split">
           <div data-reveal>
-            <span class="kicker">Backups</span>
+            <span class="kicker">Mobile Printing</span>
+            <h2 class="h2" style="font-size:var(--fs-h3)">Bluetooth &amp; Wi-Fi thermal printing</h2>
+            <p class="lead" style="font-size:1.05rem;margin-top:14px">
+              Print customer receipts directly to portable 58mm or 80mm Bluetooth ESC/POS printers, or send print jobs across your counter to a Wi-Fi receipt printer.
+            </p>
+            <ul class="flist" style="margin-top:20px">
+              <li><i data-icon="printer"></i> Standard ESC/POS receipt generation</li>
+              <li><i data-icon="device"></i> Bluetooth direct pairing from Android settings</li>
+              <li><i data-icon="wifi"></i> Local LAN Wi-Fi printer connectivity</li>
+            </ul>
+            <div class="note" style="margin-top:24px">
+              <i data-icon="info"></i>
+              <span>Hardware protocols vary by printer manufacturer. We recommend testing your thermal printer model before deployment.</span>
+            </div>
+          </div>
+          <div data-reveal style="--d:.1s;align-self:center">
+            <div class="pipe" style="flex-direction:column;align-items:stretch;max-width:440px;margin-inline:auto">
+              <span class="pipe__node"><i data-icon="device"></i> Android Mobile POS</span>
+              <span class="pipe__arrow" style="transform:rotate(90deg);width:max-content;margin-inline:auto">→</span>
+              <span class="pipe__node"><i data-icon="printer"></i> Bluetooth / Wi-Fi Connection</span>
+              <span class="pipe__arrow" style="transform:rotate(90deg);width:max-content;margin-inline:auto">→</span>
+              <span class="pipe__node"><i data-icon="receipt"></i> Printed Customer Bill</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BACKUPS -->
+    <section class="section">
+      <div class="container">
+        <div class="split">
+          <div data-reveal>
+            <span class="kicker">Data Protection</span>
             <h2 class="h2" style="font-size:var(--fs-h3)">Backups you control.</h2>
             <p class="lead" style="font-size:1.05rem;margin-top:14px">
-              Export a backup file whenever you choose and import it to restore your data on any device
-              running Nextora POS. We recommend regular exports — especially before updates or device changes.
+              Export a database backup file whenever you choose and import it to restore your data on any device
+              running Nextora Mini POS. We recommend regular exports — especially before updates or device changes.
             </p>
             <div class="btn-row" style="margin-top:24px">
-              <a class="btn btn--ghost btn--sm" href="/support/backup-restore">Backup guide</a>
+              <a class="btn btn--ghost btn--sm" href="/support/backup-restore">Backup Guide</a>
             </div>
           </div>
           <div data-reveal style="--d:.1s">
             <div class="pipe" style="flex-direction:column;align-items:stretch;max-width:440px;margin-inline:auto">
-              <span class="pipe__node"><i data-icon="device"></i> Android device</span>
+              <span class="pipe__node"><i data-icon="device"></i> Android Device</span>
               <span class="pipe__arrow" style="transform:rotate(90deg);width:max-content;margin-inline:auto">→</span>
-              <span class="pipe__node"><i data-icon="database"></i> Local storage</span>
+              <span class="pipe__node"><i data-icon="database"></i> Local Application Storage</span>
               <span class="pipe__arrow" style="transform:rotate(90deg);width:max-content;margin-inline:auto">→</span>
-              <span class="pipe__node"><i data-icon="backup"></i> Backup file you control</span>
+              <span class="pipe__node"><i data-icon="backup"></i> Exported Backup Archive</span>
             </div>
           </div>
         </div>
@@ -132,10 +164,10 @@
     </section>
 
     <!-- REQUIREMENTS -->
-    <section class="section">
+    <section class="section section--soft">
       <div class="container container--narrow">
         <div class="section-head" data-reveal>
-          <span class="kicker">Requirements</span>
+          <span class="kicker">Specifications</span>
           <h2 class="h2" style="font-size:var(--fs-h3)">System requirements</h2>
         </div>
         <table class="spec" data-reveal>
@@ -143,13 +175,10 @@
             <tr><td>Operating system</td><td>Android 8.0 (Oreo) or newer</td></tr>
             <tr><td>Memory</td><td>2 GB RAM or more recommended</td></tr>
             <tr><td>Storage</td><td>150 MB free space</td></tr>
-            <tr><td>Printer</td><td>Bluetooth / Wi-Fi thermal printer, optional</td></tr>
+            <tr><td>Printer support</td><td>Bluetooth / Wi-Fi ESC/POS thermal printer (optional)</td></tr>
+            <tr><td>Licensing model</td><td>Annual subscription, per device</td></tr>
           </tbody>
         </table>
-        <div class="note" style="margin-top:26px" data-reveal>
-          <i data-icon="info"></i>
-          <span>Distribution is via APK from the official Nextora release source. Enable installation from your browser or file manager only when installing, and download only from pos.nextoracreations.co.in.</span>
-        </div>
       </div>
     </section>
 
@@ -158,11 +187,8 @@
       <div class="container">
         <div class="cta-band" data-reveal>
           <h2 class="h2" style="font-size:var(--fs-h3)">Your counter. In your hand.</h2>
-          <p class="lead">Get Nextora POS Android, or talk to us about licensing for your business.</p>
-          <div class="btn-row">
-            <a class="btn btn--night" href="/download" data-track="download_android">Download Android</a>
-            <a class="btn btn--ghost-night" href="/contact" data-track="contact_sales">Talk to Us</a>
-          </div>
+          <p class="lead">Get Nextora Mini POS for Android, or contact Nextora Creations for commercial licensing.</p>
+          <div id="ph-android-play-cta-bottom" class="btn-row"></div>
         </div>
       </div>
     </section>
