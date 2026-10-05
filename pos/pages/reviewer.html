@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Google Play Reviewer Access Portal | Nextora POS</title>
+  <meta name="description" content="Dedicated Google Play Reviewer Access and Evaluation Guide for Nextora POS (Package: com.nextora.pos.mini). Complete testing instructions, activation credentials, and role PINs." />
+  <link rel="canonical" href="https://pos.nextoracreations.co.in/reviewer" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" type="image/png" href="/brand/favicon.png" />
+  <link rel="stylesheet" href="/src/css/style.css" />
+  <style>
+    .credential-box {
+      background: #F4F7EF;
+      border: 1px solid #D5E2C8;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 20px 0;
+    }
+    .credential-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      padding: 12px;
+      word-break: break-all;
+      color: #0F172A;
+      max-height: 120px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+      user-select: all;
+    }
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #14532D;
+      color: #FFFFFF;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+    .btn-copy:hover {
+      background: #166534;
+    }
+    .badge-scope {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #DCFCE7;
+      color: #14532D;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #14532D;
+      color: #FFF;
+      font-size: 12px;
+      font-weight: 700;
+      margin-right: 8px;
+    }
+    .roles-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+    .roles-table th, .roles-table td {
+      border: 1px solid #E2E8F0;
+      padding: 10px 14px;
+      font-size: 13px;
+      text-align: left;
+    }
+    .roles-table th {
+      background: #F8FAFC;
+      font-weight: 700;
+      color: #0F172A;
+    }
+  </style>
+</head>
+<body data-page="legal" data-path="/reviewer">
+  <a class="skip" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+
+  <main id="main">
+    <section class="pagehero">
+      <div class="container">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Nextora POS</a><span class="sep">/</span><span aria-current="page">Google Play Reviewer Access</span>
+        </nav>
+        <div class="badge-scope">Google Play Store Review &amp; Certification Portal</div>
+        <h1 class="h2">Reviewer Access &amp; Testing Protocol.</h1>
+        <p class="updated">Application: Nextora POS (Package: <code>com.nextora.pos.mini</code>) · Android 16 / API 36 Target</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container container--narrow">
+        <div class="prose">
+          <p>This portal provides the <strong>Google Play App Review Team</strong> with authorized, autonomous evaluation access to <strong>Nextora POS</strong> on Android without developer intervention, payment, SMS, OTP, or third-party cloud registration.</p>
+
+          <hr style="border:0;border-top:1px solid var(--line);margin:24px 0" />
+
+          <h2>1. Application Architecture Summary</h2>
+          <ul>
+            <li><strong>100% Offline-First POS Engine:</strong> All restaurant catalog items, table states, bills, kitchen orders, inventory tallies, and receipts are stored and processed entirely in an on-device local SQLite database.</li>
+            <li><strong>No Cloud Account Required:</strong> Reviewers do not need to register a cloud account or provide credentials to test full functionality.</li>
+            <li><strong>Autonomous Device Licensing:</strong> The application validates review entitlements cryptographically on-device using pinned RFC-8785 Ed25519 digital signatures.</li>
+            <li><strong>Independent Audit Scope:</strong> Reviewer access is explicitly categorized under <code>GOOGLE_PLAY_REVIEW_ACCESS</code> and distinct from normal commercial customer licenses.</li>
+          </ul>
+
+          <h2>2. Authorized Reviewer Activation Code</h2>
+          <p>Copy and paste the authentic Ed25519 signed review entitlement code below into the application's activation screen:</p>
+
+          <div class="credential-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <strong style="font-size:13px;color:#14532D">Nextora Play Reviewer Activation Code (NXA1 Format):</strong>
+              <span id="copy-status" style="font-size:12px;color:#166534;font-weight:600"></span>
+            </div>
+            <div id="activation-code" class="credential-code">NXA1-eyJhbGdvcml0aG0iOiJFZDI1NTE5IiwicGF5bG9hZCI6eyJhY3RpdmF0ZWRBdCI6IjIwMjYtMTAtMDVUMTU6MDY6MTUuMTcwWiIsImFjdGl2YXRpb25JZCI6IjQ5ODM3MTNlLTI0NmUtNGU1OS04NDQ0LWQ1ODVmZDgwNGUzMiIsImN1c3RvbWVySWQiOiJnb29nbGUtcGxheS1yZXZpZXctdGVhbSIsImN1c3RvbWVyTmFtZSI6Ikdvb2dsZSBQbGF5IFJldmlldyBUZWFtIiwiZXhwaXJlc0F0IjoiMjAyNy0xMC0wNVQxNTowNjoxNS4xNzBaIiwiZmVhdHVyZXMiOlsiQUxMIl0sImluc3RhbGxhdGlvbklkIjoiR09PR0xFX1BMQVlfUkVWSUVXIiwiaXNzdWVkQXQiOiIyMDI2LTEwLTA1VDE1OjA2OjE1LjE3MFoiLCJsaWNlbnNlSWQiOiJwbGF5LXJldmlldy0yMDI2LWxpY2Vuc2UiLCJsaWNlbnNlS2V5IjoiTlhNVi1QTEFZLVJFVklFVy0yMDI2IiwibGljZW5zZVR5cGUiOiJHT09HTEVfUExBWV9SRVZJRVdfQUNDRVNTIiwibGljZW5zZVZlcnNpb24iOjEsIm5vbmNlIjoiOWIyMzAyZGEtYzU3OS00ZTdkLTk4NjctYmVmYWQ0Yzk1NWFmIiwib3duZXJOYW1lIjoiUGxheSBTdG9yZSBSZXZpZXdlciIsInBsYW4iOiJHT09HTEVfUExBWV9SRVZJRVdfQUNDRVNTIiwicHJvZHVjdENvZGUiOiJOWE1WIiwicHJvZHVjdElkIjoiTkVYVE9SQV9NT0JJTEUiLCJzY2hlbWFWZXJzaW9uIjoxLCJzdGF0dXMiOiJBQ1RJVkUifSwicHVibGljS2V5RmluZ2VycHJpbnQiOiJiMDc5ODE4YTRmYjBmNWIxNDliOTQ1NWVmODFjN2FiYzgxOTdkOWMzMDcxZDliNDhmZDVkNjg2NGYwY2E4YjcyIiwic2NoZW1hVmVyc2lvbiI6MSwic2lnbmF0dXJlIjoicVA2ekFLbDMveTEzSGJ2cWlYelpzd2NSSk01VjBBT2FHUWtKampOQkVYZ01GNlZJZVZReGJLZ0EyUk5ZYzNOWGhHQ1N1cTMwd1FnQWRjazRFSXVORFE9PSJ9</div>
+            <button class="btn-copy" onclick="copyReviewCode()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copy Activation Code
+            </button>
+          </div>
+
+          <h2>3. Step-by-Step Reviewer Evaluation Walkthrough</h2>
+
+          <h3><span class="step-num">1</span> Launch &amp; Activate Software</h3>
+          <ol>
+            <li>Launch <strong>Nextora POS</strong> on your Android review device or emulator.</li>
+            <li>The <strong>Activate Your Software</strong> counter setup screen is presented.</li>
+            <li>Paste the <strong>Reviewer Activation Code</strong> from above into the <em>License Key or Activation Code</em> input box.</li>
+            <li>Tap <strong>Activate</strong>.</li>
+            <li>The on-device Ed25519 cryptographic validator verifies the authentic signature against the pinned authority key. A success dialog appears: <em>"Google Play Reviewer Access verified and activated successfully for this device."</em></li>
+            <li>Tap <strong>Get Started</strong>.</li>
+          </ol>
+
+          <h3><span class="step-num">2</span> Complete Restaurant Registration (One-Time Setup)</h3>
+          <p>Enter sample testing details to initialize your local store profile:</p>
+          <ul>
+            <li><strong>Restaurant Name:</strong> <code>Nextora Test Cafe</code></li>
+            <li><strong>Owner / Manager Name:</strong> <code>Play Store Reviewer</code></li>
+            <li><strong>Phone Number:</strong> <code>9876543210</code></li>
+            <li><strong>Owner Admin PIN:</strong> <code>8426</code> (Confirm PIN: <code>8426</code>)</li>
+            <li>Tap <strong>Complete Setup &amp; Open Counter</strong>.</li>
+          </ul>
+
+          <h3><span class="step-num">3</span> Full POS Feature Exploration</h3>
+          <p>The application immediately opens to the main POS interface with complete access to all operational modules:</p>
+          <ul>
+            <li><strong>Billing &amp; Counter Orders:</strong> Tap menu items (Beverages, Snacks, Meals) to add to the cart. Tap <em>View Cart</em>, choose Dine-In or Takeaway, select Cash/UPI/Card, and tap <em>Save &amp; Print</em> to generate an invoice.</li>
+            <li><strong>Kitchen Order Tickets (KOT):</strong> Navigate to the <em>KOT</em> tab. Created orders automatically appear in the kitchen queue. Tap tickets to cycle states: <code>PENDING</code> &rarr; <code>PREPARING</code> &rarr; <code>READY</code> &rarr; <code>SERVED</code>.</li>
+            <li><strong>Live Kitchen Display (KDS):</strong> Real-time synchronization with KDS counter terminals.</li>
+            <li><strong>Inventory Management:</strong> Navigate to <em>More &rarr; Inventory</em> to view ingredient levels, low-stock indicators, and adjustment audit logs.</li>
+            <li><strong>Thermal Printing:</strong> Compatible with 58mm and 80mm ESC/POS USB, Bluetooth, and Wi-Fi receipt and kitchen printers.</li>
+            <li><strong>Offline Resilience:</strong> Turn on Airplane Mode; complete bills and create KOT tickets without internet interruption. Turn off Airplane Mode with zero crashes.</li>
+          </ul>
+
+          <h2>4. Role-Based Access Control &amp; Staff Switching</h2>
+          <p>To evaluate multi-user staff switching, tap the staff switch avatar at the top right of the screen and enter the corresponding PIN:</p>
+
+          <table class="roles-table">
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Username</th>
+                <th>Evaluation PIN</th>
+                <th>Assigned Permissions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Admin Manager</strong></td>
+                <td><code>admin</code></td>
+                <td><code>8426</code></td>
+                <td>Full system access (Billing, Inventory, Users, Settings, Reports, Backups).</td>
+              </tr>
+              <tr>
+                <td><strong>Counter Cashier</strong></td>
+                <td><code>cashier</code></td>
+                <td><code>1111</code></td>
+                <td>Front counter operations (Billing, Cart, KOT queue, Customer invoices).</td>
+              </tr>
+              <tr>
+                <td><strong>Kitchen Staff</strong></td>
+                <td><code>kitchen</code></td>
+                <td><code>2222</code></td>
+                <td>Dedicated Kitchen Display view (Order queue and status changes only; revenue hidden).</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>5. Cryptographic &amp; Safety Verification</h2>
+          <table class="roles-table">
+            <tbody>
+              <tr>
+                <td><strong>Public Key Algorithm</strong></td>
+                <td>RFC-8785 Canonical Ed25519 (TweetNaCl / WebCrypto)</td>
+              </tr>
+              <tr>
+                <td><strong>Pinned Authority Public Key</strong></td>
+                <td><code>9rhqj7k/H1yX8IQ5Wt9mvtlj3vs2odPN771b3t6Ul1Q=</code></td>
+              </tr>
+              <tr>
+                <td><strong>Authority Key Fingerprint</strong></td>
+                <td><code>b079818a4fb0f5b149b9455ef81c7abc8197d9c3071d9b48fd5d6864f0ca8b72</code></td>
+              </tr>
+              <tr>
+                <td><strong>Entitlement Scope</strong></td>
+                <td><code>GOOGLE_PLAY_REVIEW_ACCESS</code> (Valid through October 2027)</td>
+              </tr>
+              <tr>
+                <td><strong>Hardware Binding Policy</strong></td>
+                <td>Automated &amp; human Google Play test devices permitted; commercial customer licenses remain strictly hardware-bound.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p style="font-size:13px;color:#64748B;margin-top:24px">For assistance or technical inquiries regarding certification, contact Nextora Developer Support at <a href="mailto:support@nextoracreations.co.in">support@nextoracreations.co.in</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function copyReviewCode() {
+      const code = document.getElementById('activation-code').innerText.trim();
+      navigator.clipboard.writeText(code).then(() => {
+        const status = document.getElementById('copy-status');
+        status.innerText = 'Copied to clipboard!';
+        setTimeout(() => {
+          status.innerText = '';
+        }, 3000);
+      });
+    }
+  </script>
+</body>
+</html>
