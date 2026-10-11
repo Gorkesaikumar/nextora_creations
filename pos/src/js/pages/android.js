@@ -33,7 +33,7 @@ function renderPlayCta(containerId, isNight = false) {
     `;
   } else {
     c.innerHTML = `
-      <span class="badge ${isNight ? 'badge--outline' : 'badge--accent'}" style="font-size:0.92rem;padding:10px 18px;display:inline-flex;align-items:center;gap:8px">
+      <span class="badge badge-play ${isNight ? 'badge--outline' : 'badge--accent'}">
         <i data-icon="playstore"></i> Coming Soon on Google Play
       </span>
       <a class="btn ${isNight ? 'btn--night' : 'btn--primary'}" href="/download" data-track="hero_get_pos">Download Options</a>

@@ -6,8 +6,8 @@
    are built around each screenshot's native aspect ratio, so
    nothing is stretched, squashed or cropped:
 
-     Desktop screenshot: 1492 × 886  (ratio 1.684)
-     Android screenshot:  779 × 1600 (ratio 1 : 2.054)
+     Desktop screenshot: 1620 × 971  (ratio 1.668)
+     Android screenshot:  720 × 1600 (ratio 1 : 2.222)
 
    Replace /products/... screenshots and only these constants
    need to change.
@@ -15,20 +15,20 @@
 
 export const DESKTOP_SHOT = {
   src: '/products/desktop/dashboard.webp',
-  srcset: '/products/desktop/dashboard-900.webp 900w, /products/desktop/dashboard.webp 1492w',
-  w: 1492,
-  h: 886,
-  ratio: '1492 / 886',
-  alt: 'Nextora Mini POS Windows dashboard showing Today’s sales, Today’s orders, Average order, Cancelled bills, payment breakdown and billing shortcuts',
+  srcset: '/products/desktop/dashboard-900.webp 900w, /products/desktop/dashboard.webp 1620w',
+  w: 1620,
+  h: 971,
+  ratio: '1620 / 971',
+  alt: 'Nextora POS desktop dashboard showing Today’s sales ₹1,54,000, Today’s orders 180, Average order, Cancelled bills, payment breakdown and billing shortcuts',
 };
 
 export const ANDROID_SHOT = {
   src: '/products/android/dashboard.webp',
-  srcset: '/products/android/dashboard-460.webp 460w, /products/android/dashboard.webp 779w',
-  w: 779,
+  srcset: '/products/android/dashboard-460.webp 460w, /products/android/dashboard.webp 720w',
+  w: 720,
   h: 1600,
-  ratio: '779 / 1600',
-  alt: 'Nextora Mini POS Android dashboard showing Nextora Cafe, License Active, welcome header, sales summary, payment breakdown and bottom navigation',
+  ratio: '720 / 1600',
+  alt: 'Nextora POS mobile dashboard showing Sanddeep restaurant, Welcome back Abhijeeth, Today’s sales ₹5,591.25, payment breakdown and bottom navigation',
 };
 
 function shotImg(shot, { eager = false, sizes } = {}) {

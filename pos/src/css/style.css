@@ -283,6 +283,11 @@ button {
 }
 .btn:active { transform: scale(0.98); }
 .btn svg { width: 15px; height: 15px; flex: none; }
+/* long-label CTAs may soften their nowrap on tiny screens instead of overflowing */
+.btn { max-width: 100%; }
+@media (max-width: 480px) {
+  .btn { white-space: normal; }
+}
 
 .btn--primary { background: var(--ink); color: #fff; }
 .btn--primary:hover { background: var(--accent); color: #fff; box-shadow: var(--shadow-glow); }
@@ -333,7 +338,10 @@ button {
 .section--night .chip--accent { background: rgba(233, 240, 223, 0.12); color: var(--accent); }
 
 .badge {
-  display: inline-block;
+  /* inline-flex keeps an injected icon (playstore etc.) on the same text line */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-mono);
   font-size: 0.66rem;
   font-weight: 700;
@@ -344,6 +352,20 @@ button {
   background: var(--ink);
   color: #fff;
 }
+/* injected <i data-icon> SVGs have no intrinsic size — cap them inside badges,
+   otherwise the playstore mark renders at its viewBox-scaled natural size
+   (~144px) and blows the badge out to 300px+ */
+.badge svg { width: 15px; height: 15px; flex: none; }
+/* larger “Coming Soon on Google Play” announcement badge */
+.badge-play {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  padding: 12px 20px;
+  border-radius: 999px;
+}
+.badge-play svg { width: 17px; height: 17px; }
 .badge--accent { background: var(--accent); color: #fff; }
 .badge--outline { background: transparent; color: inherit; box-shadow: inset 0 0 0 1px var(--line-strong); }
 
@@ -542,7 +564,7 @@ button {
 @media (max-width: 420px) { .footer__grid { grid-template-columns: 1fr; } .footer__brand { grid-column: span 1; } }
 
 /* ---------- Device frames (built around the real screenshots) ----------
-   Desktop screenshot 1492×886 (ratio 1.684) · Android screenshot 779×1600 (1 : 2.054).
+   Desktop screenshot 1620×971 (ratio 1.668) · Android screenshot 720×1600 (1 : 2.222).
    Each frame wraps the screenshot's native aspect ratio — nothing is stretched,
    squashed or cropped. Swapping /public/products/* screenshots updates everything. */
 .ddesk {
@@ -559,7 +581,7 @@ button {
   padding: clamp(7px, 0.9vw, 12px);
 }
 .ddesk__viewport {
-  aspect-ratio: 1492 / 886;
+  aspect-ratio: 1620 / 971;
   overflow: hidden;
   border-radius: 10px 10px 4px 4px;
   background: #f4f6f5;
@@ -597,7 +619,7 @@ button {
   padding: clamp(7px, 1.1vw, 10px);
 }
 .dphone__viewport {
-  aspect-ratio: 779 / 1600;
+  aspect-ratio: 720 / 1600;
   overflow: hidden;
   border-radius: clamp(21px, 3.6vw, 31px);
   background: #f4f6f5;
@@ -746,7 +768,15 @@ button {
 
 /* feature list */
 .flist { display: grid; gap: 12px; }
-.flist li { display: flex; gap: 12px; align-items: flex-start; font-size: var(--fs-sm); color: var(--ink-2); }
+.flist li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  min-width: 0; /* long unbroken <strong> runs must not stretch grid tracks */
+}
+.flist li > :not(svg) { min-width: 0; }
 .flist li svg { width: 17px; height: 17px; stroke: var(--ok-ink); flex: none; margin-top: 2px; }
 .section--night .flist li { color: var(--on-night-2); }
 .section--night .flist li svg { stroke: var(--accent); }
@@ -800,8 +830,12 @@ button {
 .step p { color: var(--on-night-2); font-size: var(--fs-sm); }
 
 /* comparison table */
+/* 3-column comparison table: scroll in place on narrow screens instead of
+   squeezing three readable columns into a phone width */
+.cmp-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.cmp-scroll .cmp { min-width: 640px; }
 .cmp { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
-.cmp th, .cmp td { text-align: left; padding: 15px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.cmp th, .cmp td { text-align: left; padding: 11px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
 .cmp thead th {
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -814,6 +848,18 @@ button {
 .cmp td { color: var(--ink-2); width: 33%; }
 .cmp td .yes,
 .cmp td .included { color: var(--ok-ink); font-weight: 650; }
+/* injected <i data-icon> SVGs have no intrinsic size — keep the check/cross
+   marks compact and vertically aligned with their label */
+.cmp td .included,
+.cmp td .not-included,
+.cmp td .yes,
+.cmp td .no { display: inline-flex; align-items: center; gap: 7px; }
+.cmp td .included svg,
+.cmp td .not-included svg,
+.cmp td .yes svg,
+.cmp td .no svg { width: 15px; height: 15px; flex: none; }
+.cmp td .included svg { stroke: var(--ok-ink); }
+.cmp td .not-included svg { stroke: var(--ink-3); }
 .cmp td .no,
 .cmp td .not-included {
   color: var(--ink-3);
@@ -1105,6 +1151,10 @@ button {
   transition-delay: var(--d, 0s);
   will-change: opacity, transform;
 }
+/* animated columns must stay shrinkable inside grid rows — otherwise a long
+   unbroken <strong> run holds the column at its natural width and the
+   .split grid track (and the page) overflows at narrow viewports */
+[data-reveal] { min-width: 0; }
 [data-reveal].is-in { opacity: 1; transform: none; }
 .no-io [data-reveal] { opacity: 1; transform: none; }
 
@@ -1175,25 +1225,35 @@ button {
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  padding-top: calc(72px + clamp(48px, 8vw, 96px));
-  padding-bottom: clamp(48px, 7vw, 96px);
+  /* 72px fixed nav + a compact band of breathing room */
+  padding-top: calc(72px + clamp(28px, 4.5vw, 62px));
+  padding-bottom: clamp(44px, 6.5vw, 88px);
   overflow: clip;
   background:
     radial-gradient(1000px 520px at 50% -200px, rgba(33, 102, 78, 0.1), transparent 70%),
     var(--bg);
 }
 .hero__head { text-align: center; max-width: 900px; margin-inline: auto; }
-.hero__head .display { margin-bottom: 22px; }
-.hero__head .lead { max-width: 620px; margin-inline: auto; margin-bottom: 34px; }
+/* tighter, more balanced vertical rhythm: badge → headline → paragraph → CTAs → preview */
+.hero__head .chip { margin-bottom: 20px; }
+.hero__head .display { margin-bottom: 18px; }
+.hero__head .lead {
+  max-width: 580px;
+  margin-inline: auto;
+  margin-bottom: 26px;
+  font-size: clamp(1rem, 0.94rem + 0.4vw, 1.19rem);
+  line-height: 1.55;
+  color: var(--ink-2);
+}
 .hero__platforms {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 34px;
+  margin-top: 28px;
 }
 /* product stage — desktop dominant, phone overlapping the lower-right */
-.hero__visual { margin-top: clamp(44px, 6vw, 76px); position: relative; }
+.hero__visual { margin-top: clamp(38px, 5vw, 64px); position: relative; }
 .hero__stage {
   position: relative;
   background:
@@ -1220,6 +1280,11 @@ button {
 }
 @media (max-width: 1199px) {
   .hero__phone { width: clamp(140px, 18vw, 200px); bottom: clamp(-42px, -4vw, -14px); right: clamp(6px, 4vw, 44px); }
+}
+@media (min-width: 700px) {
+  /* nudge the phone right so it sits under the app header gap instead of
+     covering the desktop's green sidebar (Nextora Cafe · workspace) */
+  .hero__phone { right: clamp(2px, 2vw, 36px); }
 }
 @media (max-width: 700px) {
   /* full-bleed stage keeps the desktop preview as large as the viewport allows */
@@ -1268,12 +1333,23 @@ button {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.92rem;
+  min-width: 0;
+  max-width: 100%;
 }
 .pipe__node svg { width: 18px; height: 18px; stroke: var(--accent); }
+/* Vertical flow diagrams: arrows go downward, but transform: rotate(90deg) is
+   purely visual — the element still reserves its full horizontal width, which
+   overlaps neighbouring nodes. writing-mode reflows the same glyph on the
+   vertical axis, so layout itself is correct. Deprecated sideways-lr ordering
+   is irrelevant for a single glyph; the inline margin centers it. */
 .pipe__arrow { color: var(--accent); font-family: var(--font-mono); font-weight: 700; }
+.pipe__arrow[style*="rotate(90deg)"] {
+  writing-mode: vertical-rl;
+  transform: none;
+}
 @media (max-width: 640px) {
   .pipe { flex-direction: column; }
-  .pipe__arrow { transform: rotate(90deg); }
+  .pipe__arrow:not([style]) { writing-mode: vertical-rl; }
 }
 
 /* download blocks */
@@ -1471,6 +1547,16 @@ button {
 
 /* versions table */
 .versions { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+/* wide data tables scroll inside their container on narrow screens instead
+   of stretching the page (they keep full table layout on wider screens) */
+.table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-scroll .versions,
+.table-scroll .roles-table { min-width: 560px; }
+/* bare URLs and long emails must wrap, never force the page wider */
+main a:where([href^="http"], [href^="mailto"]) {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 .versions th, .versions td { text-align: left; padding: 13px 14px; border-bottom: 1px solid var(--line); }
 .versions th { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
 .versions td:first-child { font-family: var(--font-mono); font-weight: 700; }
