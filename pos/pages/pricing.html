@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pricing — Simple Annual Licensing | Nextora POS</title>
-  <meta name="description" content="Nextora POS uses simple annual licensing for Desktop and Android. Request pricing for a single counter or a Desktop + Android bundle." />
+  <title>Pricing — Nextora POS Mobile (₹5,999/yr) &amp; Desktop (₹7,999/yr) | Nextora POS</title>
+  <meta name="description" content="Transparent annual licensing for Nextora POS: Mobile at ₹5,999/year, Desktop at ₹7,999/year. Optional thermal printing is +₹2,000. No hidden fees or forced bundles." />
   <link rel="canonical" href="https://pos.nextoracreations.co.in/pricing" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="theme-color" content="#0c1310" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Nextora POS" />
-  <meta property="og:title" content="Pricing — Simple Annual Licensing | Nextora POS" />
-  <meta property="og:description" content="Simple annual licensing for Desktop and Android. Request pricing for your business." />
+  <meta property="og:title" content="Pricing — Nextora POS Mobile &amp; Desktop | Transparent Annual Licensing" />
+  <meta property="og:description" content="Nextora POS Mobile: ₹5,999/yr. Nextora POS Desktop: ₹7,999/yr. Optional thermal printing: +₹2,000. 100% offline-first restaurant billing." />
   <meta property="og:url" content="https://pos.nextoracreations.co.in/pricing" />
   <meta property="og:image" content="https://pos.nextoracreations.co.in/brand/og-cover.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" href="/brand/favicon.png" />
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/hanken-grotesk-latin.woff2" crossorigin />
   <link rel="stylesheet" href="/src/css/style.css" />
 </head>
@@ -27,83 +28,193 @@
     <section class="pagehero section--night">
       <div class="container">
         <nav class="crumbs" aria-label="Breadcrumb">
-          <a href="/">Nextora Mini POS</a><span class="sep">/</span><span aria-current="page">Pricing</span>
+          <a href="/">Nextora POS</a><span class="sep">/</span><span aria-current="page">Pricing</span>
         </nav>
-        <h1 class="h2">Simple annual licensing.</h1>
-        <p class="lead">Choose the platform that fits your business. One annual license per device, renewed yearly.</p>
+        <h1 class="h2">Transparent annual licensing.</h1>
+        <p class="lead">Two straightforward plans built for restaurant operations. Thermal printing is available as an optional add-on for either plan.</p>
       </div>
     </section>
 
+    <!-- ============ PRICING CARDS ============ -->
     <section class="section">
       <div class="container">
         <div class="price-grid">
+
+          <!-- Card 1: Mobile -->
           <article class="price" data-reveal>
-            <div>
-              <div class="price__name">Windows Desktop</div>
-              <div class="price__platform">Nextora Mini POS for Windows</div>
-            </div>
-            <div class="price__model">Annual License<small>Per PC · billed yearly</small></div>
-            <ul class="flist">
-              <li><i data-icon="check"></i> Offline-first billing on Windows</li>
-              <li><i data-icon="check"></i> ESC/POS thermal printing (USB / serial)</li>
-              <li><i data-icon="check"></i> Local database &amp; backup restore</li>
-              <li><i data-icon="check"></i> Sales reports &amp; summaries</li>
-              <li><i data-icon="check"></i> Software updates during license period</li>
-              <li><i data-icon="check"></i> Direct support by email &amp; phone</li>
-            </ul>
-            <a class="btn btn--ghost" href="#request" data-track="pricing_request">Request Pricing</a>
-          </article>
-
-          <article class="price price--featured" data-reveal style="--d:.08s">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
-              <div>
-                <div class="price__name">Desktop + Android</div>
-                <div class="price__platform">Counter + mobile bundle</div>
+            <div class="price__head">
+              <div class="price__badge-row">
+                <span class="badge">Mobile Billing</span>
+                <span class="price__platform">Android 8.0+</span>
               </div>
-              <span class="badge badge--accent">Bundle</span>
+              <h2 class="price__name">Nextora POS Mobile</h2>
+              <p class="price__desc">Fast, portable restaurant billing for Android smartphones and tablets.</p>
             </div>
-            <div class="price__model">Annual License<small>Two devices · billed yearly</small></div>
-            <ul class="flist">
-              <li><i data-icon="check"></i> Full Windows Desktop edition</li>
-              <li><i data-icon="check"></i> Full Android Mobile edition</li>
-              <li><i data-icon="check"></i> Fixed counter + floor/mobile billing</li>
-              <li><i data-icon="check"></i> USB, Bluetooth, &amp; Wi-Fi printing support</li>
-              <li><i data-icon="check"></i> Software updates during license period</li>
-              <li><i data-icon="check"></i> Priority support by email &amp; phone</li>
+
+            <div class="price__rate">
+              <div class="price__amount">₹5,999<span class="price__period">/ year</span></div>
+              <div class="price__sub mono">Annual license for 1 device · Renewed yearly</div>
+            </div>
+
+            <!-- Optional Add-on Box -->
+            <div class="price__addon">
+              <div class="price__addon-header">
+                <span class="price__addon-title">Optional Thermal Printing</span>
+                <span class="price__addon-badge">+₹2,000 / yr</span>
+              </div>
+              <p class="price__addon-desc">Enables receipt printing on supported Bluetooth &amp; Wi-Fi thermal printers.</p>
+              <div class="price__addon-total">Total with printing: <strong>₹7,999 / year</strong></div>
+            </div>
+
+            <ul class="flist price__features">
+              <li><i data-icon="check"></i> <span>Mobile restaurant billing on Android</span></li>
+              <li><i data-icon="check"></i> <span>100% offline billing with local SQLite storage</span></li>
+              <li><i data-icon="check"></i> <span>Menu, item and category management</span></li>
+              <li><i data-icon="check"></i> <span>Bill history &amp; daily sales summaries</span></li>
+              <li><i data-icon="check"></i> <span>Database backup export &amp; restore to storage</span></li>
+              <li><i data-icon="check"></i> <span>Annual license for 1 device (365 days)</span></li>
+              <li><i data-icon="check"></i> <span>Software updates &amp; technical support included</span></li>
+              <li class="excluded"><i data-icon="x"></i> <span>Live KDS (Kitchen Display System) — Desktop only</span></li>
+              <li class="excluded"><i data-icon="x"></i> <span>Nextora Owner Cloud Analytics — Desktop only</span></li>
             </ul>
-            <a class="btn btn--primary" href="#request" data-track="pricing_request">Request Pricing</a>
+
+            <a class="btn btn--ghost" href="#request" data-track="pricing_request_mobile">Get Nextora POS Mobile</a>
           </article>
 
-          <article class="price" data-reveal style="--d:.16s">
-            <div>
-              <div class="price__name">Android Mobile</div>
-              <div class="price__platform">Nextora Mini POS for Android</div>
+          <!-- Card 2: Desktop (Featured) -->
+          <article class="price price--featured" data-reveal style="--d:.08s">
+            <div class="price__head">
+              <div class="price__badge-row">
+                <span class="badge badge--accent">Complete System</span>
+                <span class="price__platform">Windows 10 / 11</span>
+              </div>
+              <h2 class="price__name">Nextora POS Desktop</h2>
+              <p class="price__desc">Full restaurant counter billing, Live KDS, stock inventory, and cloud analytics.</p>
             </div>
-            <div class="price__model">Annual License<small>Per mobile device · billed yearly</small></div>
-            <ul class="flist">
-              <li><i data-icon="check"></i> Offline mobile billing on Android</li>
-              <li><i data-icon="check"></i> Bluetooth &amp; Wi-Fi thermal printing</li>
-              <li><i data-icon="check"></i> Local database &amp; backup export/restore</li>
-              <li><i data-icon="check"></i> Daily sales summaries</li>
-              <li><i data-icon="check"></i> Software updates during license period</li>
-              <li><i data-icon="check"></i> Direct support by email &amp; phone</li>
+
+            <div class="price__rate">
+              <div class="price__amount">₹7,999<span class="price__period">/ year</span></div>
+              <div class="price__sub mono">Annual license for 1 PC · Renewed yearly</div>
+            </div>
+
+            <!-- Optional Add-on Box -->
+            <div class="price__addon">
+              <div class="price__addon-header">
+                <span class="price__addon-title">Optional Thermal Printing</span>
+                <span class="price__addon-badge">+₹2,000 / yr</span>
+              </div>
+              <p class="price__addon-desc">Enables ESC/POS thermal receipt printing via USB or serial ports.</p>
+              <div class="price__addon-total">Total with printing: <strong>₹9,999 / year</strong></div>
+            </div>
+
+            <ul class="flist price__features">
+              <li class="highlight"><i data-icon="check"></i> <span>Offline-first billing on Windows (fast local SQLite)</span></li>
+              <li class="highlight"><i data-icon="check"></i> <span><strong>Live KDS:</strong> Real-time kitchen display via local LAN/Wi-Fi</span></li>
+              <li><i data-icon="check"></i> <span><strong>KOT Workflow:</strong> Kitchen tickets with table &amp; item notes</span></li>
+              <li class="highlight"><i data-icon="check"></i> <span><strong>Stock Inventory:</strong> Recipe mapping, COGS &amp; wastage</span></li>
+              <li class="highlight"><i data-icon="check"></i> <span><strong>Owner Cloud Analytics:</strong> Remote sync &amp; PDF/Excel exports</span></li>
+              <li><i data-icon="check"></i> <span>User roles: Admin, Cashier, and Kitchen Staff</span></li>
+              <li><i data-icon="check"></i> <span>Local database &amp; automatic backup restore</span></li>
+              <li><i data-icon="check"></i> <span>Annual license for 1 PC (365 days)</span></li>
+              <li><i data-icon="check"></i> <span>Software updates &amp; priority support included</span></li>
             </ul>
-            <a class="btn btn--ghost" href="#request" data-track="pricing_request">Request Pricing</a>
+
+            <a class="btn btn--primary" href="#request" data-track="pricing_request_desktop">Get Nextora POS Desktop</a>
           </article>
+
         </div>
 
-        <p style="text-align:center;color:var(--ink-3);font-size:var(--fs-sm);margin-top:34px" data-reveal>
-          Final pricing depends on your business and licensing needs — request a quote and we will respond with exact pricing.
+        <p class="mono" style="text-align:center;color:var(--ink-3);font-size:var(--fs-sm);margin-top:34px" data-reveal>
+          All licenses are valid for one full year (365 days) on one device. Desktop and Mobile are independent products — no forced bundles.
         </p>
       </div>
     </section>
 
-    <section class="section section--soft" id="request">
+    <!-- ============ FEATURE COMPARISON TABLE ============ -->
+    <section class="section section--soft" id="compare">
+      <div class="container container--narrow">
+        <div class="section-head section-head--center" data-reveal>
+          <span class="kicker">Plan Comparison</span>
+          <h2 class="h2">Desktop vs Mobile at a glance.</h2>
+          <p>Choose the setup that matches your restaurant layout. Live KDS and Cloud Analytics are exclusive to Desktop.</p>
+        </div>
+
+        <table class="cmp" data-reveal>
+          <thead>
+            <tr>
+              <th scope="col">Feature / Specification</th>
+              <th scope="col">Nextora POS Desktop</th>
+              <th scope="col">Nextora POS Mobile</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Annual License Price</th>
+              <td data-label="Desktop"><span class="highlight-price">₹7,999 / year</span></td>
+              <td data-label="Mobile"><span class="highlight-price">₹5,999 / year</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Optional Thermal Printing</th>
+              <td data-label="Desktop">+₹2,000 (Total ₹9,999/yr)</td>
+              <td data-label="Mobile">+₹2,000 (Total ₹7,999/yr)</td>
+            </tr>
+            <tr>
+              <th scope="row">Offline-First Billing</th>
+              <td data-label="Desktop"><span class="included">Included</span> (Local SQLite)</td>
+              <td data-label="Mobile"><span class="included">Included</span> (Local SQLite)</td>
+            </tr>
+            <tr>
+              <th scope="row">Live Kitchen Display System (KDS)</th>
+              <td data-label="Desktop"><span class="included">Included</span> (Local Wi-Fi/LAN server)</td>
+              <td data-label="Mobile"><span class="not-included">Not included</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Kitchen Order Tickets (KOT)</th>
+              <td data-label="Desktop"><span class="included">Included</span> (Print &amp; status flow)</td>
+              <td data-label="Mobile"><span class="included">Included</span> (Mobile ticket printing)</td>
+            </tr>
+            <tr>
+              <th scope="row">Recipe &amp; Stock Inventory</th>
+              <td data-label="Desktop"><span class="included">Included</span> (Recipes, COGS, wastage)</td>
+              <td data-label="Mobile"><span class="included">Included</span> (Basic stock catalog)</td>
+            </tr>
+            <tr>
+              <th scope="row">Owner Cloud Analytics Sync</th>
+              <td data-label="Desktop"><span class="included">Included</span> (owner.nextoracreations.co.in)</td>
+              <td data-label="Mobile"><span class="not-included">Not included</span></td>
+            </tr>
+            <tr>
+              <th scope="row">User Roles &amp; Permissions</th>
+              <td data-label="Desktop">Admin, Cashier, Kitchen Staff</td>
+              <td data-label="Mobile">Basic Manager PIN</td>
+            </tr>
+            <tr>
+              <th scope="row">Printer Connection Types</th>
+              <td data-label="Desktop">ESC/POS via USB or Serial</td>
+              <td data-label="Mobile">Bluetooth (SPP/BLE) &amp; Wi-Fi</td>
+            </tr>
+            <tr>
+              <th scope="row">Supported Operating System</th>
+              <td data-label="Desktop">Windows 10 / 11 (64-bit)</td>
+              <td data-label="Mobile">Android 8.0 or newer</td>
+            </tr>
+            <tr>
+              <th scope="row">Backup &amp; Restore</th>
+              <td data-label="Desktop"><span class="included">Included</span> (Local disk / USB)</td>
+              <td data-label="Mobile"><span class="included">Included</span> (Device storage)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ INQUIRY FORM ============ -->
+    <section class="section" id="request">
       <div class="container container--narrow">
         <div class="section-head" data-reveal>
-          <span class="kicker">Request pricing</span>
-          <h2 class="h2" style="font-size:var(--fs-h3)">Tell us about your counter.</h2>
-          <p>We will reply with pricing and the license mix that fits your setup.</p>
+          <span class="kicker">Get Started</span>
+          <h2 class="h2" style="font-size:var(--fs-h3)">Order your license or book a demo.</h2>
+          <p>We will activate your license or schedule an onboarding walk-through for your restaurant counter.</p>
         </div>
 
         <form id="pricingForm" data-reveal style="display:grid;gap:18px;max-width:640px">
@@ -121,41 +232,44 @@
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px">
             <div>
-              <label class="mono" for="pf-phone" style="display:block;color:var(--ink-2);margin-bottom:8px">Phone</label>
-              <input id="pf-phone" name="phone" type="tel" autocomplete="tel"
+              <label class="mono" for="pf-phone" style="display:block;color:var(--ink-2);margin-bottom:8px">Phone *</label>
+              <input id="pf-phone" name="phone" type="tel" required autocomplete="tel"
                 style="width:100%;padding:13px 16px;border:1px solid var(--line-strong);border-radius:10px;font:inherit;background:var(--bg);color:var(--ink)" />
             </div>
             <div>
               <label class="mono" for="pf-plan" style="display:block;color:var(--ink-2);margin-bottom:8px">Interested in *</label>
               <select id="pf-plan" name="plan" required
                 style="width:100%;padding:13px 16px;border:1px solid var(--line-strong);border-radius:10px;font:inherit;background:var(--bg);color:var(--ink)">
-                <option value="Desktop">Desktop (Windows)</option>
-                <option value="Android">Android</option>
-                <option value="Desktop + Android">Desktop + Android bundle</option>
-                <option value="Not sure">Not sure yet</option>
+                <option value="Nextora POS Desktop (₹7,999/yr)">Nextora POS Desktop — ₹7,999 / year</option>
+                <option value="Nextora POS Desktop + Thermal Printing (₹9,999/yr)">Nextora POS Desktop + Thermal Printing — ₹9,999 / year</option>
+                <option value="Nextora POS Mobile (₹5,999/yr)">Nextora POS Mobile — ₹5,999 / year</option>
+                <option value="Nextora POS Mobile + Thermal Printing (₹7,999/yr)">Nextora POS Mobile + Thermal Printing — ₹7,999 / year</option>
+                <option value="Both / Multiple Devices">Multiple Terminals / Custom Setup</option>
+                <option value="Not sure">Not sure yet (Schedule a Demo)</option>
               </select>
             </div>
           </div>
           <div>
-            <label class="mono" for="pf-msg" style="display:block;color:var(--ink-2);margin-bottom:8px">Business details</label>
-            <textarea id="pf-msg" name="message" rows="4"
+            <label class="mono" for="pf-msg" style="display:block;color:var(--ink-2);margin-bottom:8px">Restaurant details / Question</label>
+            <textarea id="pf-msg" name="message" rows="4" placeholder="Restaurant name, number of billing counters, printer model, or questions..."
               style="width:100%;padding:13px 16px;border:1px solid var(--line-strong);border-radius:10px;font:inherit;background:var(--bg);color:var(--ink);resize:vertical"></textarea>
           </div>
           <div class="btn-row">
-            <button class="btn btn--primary" type="submit" id="pf-submit">Request Pricing</button>
-            <a class="btn btn--ghost" href="https://calendly.com/gorkesaikumar/30min" target="_blank" rel="noopener noreferrer" data-track="request_demo">Talk to Us</a>
+            <button class="btn btn--primary" type="submit" id="pf-submit">Submit Order / Inquiry</button>
+            <a class="btn btn--ghost" href="https://calendly.com/gorkesaikumar/30min" target="_blank" rel="noopener noreferrer" data-track="request_demo">Book a 30-min Demo</a>
           </div>
-          <p id="pf-success" class="note" hidden style="border-left-color:var(--ok)"><i data-icon="check"></i><span>Thanks — your request has been sent. We will get back to you shortly.</span></p>
-          <p id="pf-error" class="note note--warn" hidden><i data-icon="alert"></i><span>Something went wrong. Please email us directly at <a href="mailto:support@nextoracreations.co.in" style="color:var(--accent-ink)">support@nextoracreations.co.in</a>.</span></p>
+          <p id="pf-success" class="note" hidden style="border-left-color:var(--ok)"><i data-icon="check"></i><span>Thanks — your request has been received. Our team will contact you shortly to activate your license.</span></p>
+          <p id="pf-error" class="note note--warn" hidden><i data-icon="alert"></i><span>Something went wrong. Please email us directly at <a href="mailto:support@nextoracreations.co.in" style="color:var(--accent-ink)">support@nextoracreations.co.in</a> or WhatsApp +91 76749 81970.</span></p>
         </form>
       </div>
     </section>
 
-    <section class="section">
+    <!-- ============ LICENSING NOTES ============ -->
+    <section class="section section--soft">
       <div class="container container--narrow">
         <div class="note" data-reveal>
           <i data-icon="info"></i>
-          <span>Licensing is per device and renews annually. Activating a device requires an internet connection once; daily billing does not.</span>
+          <span><strong>Authoritative License Policy:</strong> Each license is valid for 365 days on one physical device. Initial activation verifies the license online once; daily counter billing functions 100% offline without requiring internet.</span>
         </div>
       </div>
     </section>

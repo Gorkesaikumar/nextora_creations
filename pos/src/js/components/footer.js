@@ -6,8 +6,9 @@ const COLS = [
     h: 'Product',
     links: [
       ['Overview', '/'],
-      ['Desktop', '/desktop'],
-      ['Android', '/android'],
+      ['Nextora POS Desktop', '/desktop'],
+      ['Nextora POS Mobile', '/android'],
+      ['Owner Cloud Analytics', 'https://owner.nextoracreations.co.in'],
       ['Features', '/features'],
       ['Pricing', '/pricing'],
       ['Download', '/download'],
@@ -16,7 +17,7 @@ const COLS = [
   {
     h: 'Resources',
     links: [
-      ['Support', '/support'],
+      ['Support Center', '/support'],
       ['FAQ', '/faq'],
       ['Releases', '/releases'],
       ['How It Works', '/how-it-works'],
@@ -26,14 +27,14 @@ const COLS = [
     h: 'Company',
     links: [
       ['Nextora Creations', SITE.companyUrl],
-      ['Contact', '/contact'],
+      ['Contact Sales', '/contact'],
     ],
   },
   {
     h: 'Legal',
     links: [
-      ['Privacy', '/privacy'],
-      ['Terms', '/terms'],
+      ['Privacy Policy', '/privacy'],
+      ['Terms of Service', '/terms'],
       ['License Terms', '/license'],
     ],
   },
@@ -62,14 +63,14 @@ export function renderFooter() {
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <img src="/brand/logo.png" alt="" width="38" height="38">
-          <p class="name">Nextora Mini POS</p>
-          <p>Simple billing. Even when the internet isn't. ${SITE.companyPos}</p>
+          <img src="/brand/logo.png" srcset="/brand/logo.png 1x, /brand/logo-512.png 2x" alt="Nextora Logo" width="38" height="38">
+          <p class="name">Nextora POS</p>
+          <p>Restaurant billing that works even offline. ${SITE.companyPos}</p>
         </div>
         ${COLS.map(col).join('')}
       </div>
       <div class="footer__legal">
-        <span>© <span data-year>2026</span> ${SITE.company}. Nextora Mini POS is a product of ${SITE.company}.</span>
+        <span>© <span data-year>2026</span> ${SITE.company}. Nextora POS is a product of ${SITE.company}.</span>
         <span>
           <a href="mailto:${SITE.email}">${SITE.email}</a>
           &nbsp;·&nbsp;

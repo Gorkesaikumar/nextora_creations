@@ -4,52 +4,52 @@ import { SITE, DESKTOP, ANDROID, FAQS, RELEASES } from '../../data/site.js';
 
 const pageSeo = {
   '/': {
-    title: 'Nextora Mini POS | Offline POS Billing for Windows & Android',
+    title: 'Nextora POS | Offline-First Restaurant Billing Software',
     description: SITE.description,
   },
   '/desktop': {
-    title: 'Nextora Mini POS for Windows — Desktop Billing Software | Nextora Mini POS',
-    description: `${DESKTOP.summary} Offline billing, fast item selection, thermal receipt printing, sales reports and local backups.`,
+    title: 'Nextora POS Desktop — Offline Restaurant Billing & Live KDS | Nextora POS',
+    description: `${DESKTOP.summary} Offline billing, Live KDS over local Wi-Fi, KOT tickets, recipe inventory, and Owner Cloud Analytics for ₹7,999/year.`,
   },
   '/android': {
-    title: 'Nextora Mini POS for Android — Mobile POS Billing App | Nextora Mini POS',
-    description: `${ANDROID.summary} Offline billing, item management, Bluetooth/Wi-Fi thermal printing, sales overview and backup restore.`,
+    title: 'Nextora POS Mobile — Android Restaurant Billing App | Nextora POS',
+    description: `${ANDROID.summary} Fast offline mobile billing, table orders, and Bluetooth/Wi-Fi thermal printing for ₹5,999/year.`,
   },
   '/features': {
-    title: 'Features — Offline Billing, Local Data, Thermal Printing | Nextora Mini POS',
-    description: 'Offline-first billing, fast checkout, local database storage, backup & restore, thermal printing, sales reports and annual licensing across Windows and Android.',
+    title: 'Features — Offline Billing, Live KDS, Recipes & Cloud Analytics | Nextora POS',
+    description: 'Offline-first restaurant billing, Live KDS, KOT kitchen tickets, recipe inventory, Owner Cloud Analytics, thermal printing, and annual licensing.',
   },
   '/how-it-works': {
-    title: 'How It Works — Install, Activate, Start Billing | Nextora Mini POS',
-    description: 'Install Nextora Mini POS on Windows or Android, activate your annual license and start billing in three steps.',
+    title: 'How It Works — Install, Activate, Start Billing | Nextora POS',
+    description: 'Install Nextora POS on Windows or Android, activate your annual license and start restaurant billing in three steps.',
   },
   '/pricing': {
-    title: 'Pricing — Simple Annual Licensing | Nextora Mini POS',
-    description: 'Nextora Mini POS uses simple annual licensing for Desktop and Android. Request pricing for a single counter or a Desktop + Android bundle.',
+    title: 'Pricing — Nextora POS Mobile (₹5,999/yr) & Desktop (₹7,999/yr) | Nextora POS',
+    description: 'Transparent annual licensing: Nextora POS Mobile is ₹5,999/year, Nextora POS Desktop is ₹7,999/year. Optional thermal printing is +₹2,000 for either.',
   },
   '/download': {
-    title: 'Download — Nextora Mini POS for Windows & Android',
-    description: 'Download Nextora Mini POS for Windows and Android from the official Nextora release sources. System requirements and setup guides included.',
+    title: 'Download — Nextora POS for Windows & Android',
+    description: 'Download Nextora POS for Windows and Android from official release sources. System requirements and setup guides included.',
   },
   '/releases': {
-    title: 'Releases — Nextora Mini POS Version History',
-    description: 'Official Nextora Mini POS release history and software updates for Windows and Android.',
+    title: 'Releases — Nextora POS Version History',
+    description: 'Official Nextora POS release history and software updates for Windows and Android.',
   },
   '/support': {
-    title: 'Support — Setup, Printing, Licensing & Backups | Nextora Mini POS',
+    title: 'Support — Setup, Printing, Licensing & Backups | Nextora POS',
     description: 'Guides for getting started, desktop and Android setup, printer configuration, license activation, backup & restore and software updates.',
   },
   '/faq': {
-    title: 'FAQ — Offline Billing, Printers, Licensing & Backups | Nextora Mini POS',
-    description: 'Answers about offline operation, supported printers, license activation and renewal, backups and moving devices.',
+    title: 'FAQ — Offline Billing, Printers, Licensing & Backups | Nextora POS',
+    description: 'Answers about offline operation, supported printers, pricing, license activation and renewal, backups and moving devices.',
   },
   '/contact': {
-    title: 'Contact Sales & Support | Nextora Mini POS',
-    description: 'Talk to Nextora about Nextora Mini POS — request pricing, a demo or support for your business.',
+    title: 'Contact Sales & Support | Nextora POS',
+    description: 'Talk to Nextora about Nextora POS — request pricing, book a demo, or get support for your restaurant.',
   },
-  '/privacy': { title: 'Privacy Policy | Nextora Mini POS', description: 'Privacy policy for Nextora Mini POS (Android and Desktop) and website. Covers local data storage and licensing communications.' },
-  '/terms': { title: 'Terms of Service | Nextora Mini POS', description: 'Terms of Service and licensing conditions for Nextora Mini POS.' },
-  '/license': { title: 'License Terms | Nextora Mini POS', description: 'Nextora Mini POS annual license terms: activation, devices, renewal and data responsibility.' },
+  '/privacy': { title: 'Privacy Policy | Nextora POS', description: 'Privacy policy for Nextora POS (Android and Desktop) and website. Covers local data storage and licensing communications.' },
+  '/terms': { title: 'Terms of Service | Nextora POS', description: 'Terms of Service and licensing conditions for Nextora POS.' },
+  '/license': { title: 'License Terms | Nextora POS', description: 'Nextora POS annual license terms: activation, devices, renewal and data responsibility.' },
 };
 
 const UNINDEXED = new Set(['/privacy', '/terms', '/license']);
@@ -84,27 +84,38 @@ function webSiteLd() {
 }
 
 function appLd() {
-  const offer = { '@type': 'Offer', price: '0', priceCurrency: 'INR', availability: 'https://schema.org/PreOrder' };
   return [
     {
       '@type': 'SoftwareApplication',
-      name: 'Nextora Mini POS for Windows',
+      name: 'Nextora POS Desktop',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Windows 10, Windows 11',
       description: DESKTOP.summary,
       softwareVersion: RELEASES.desktop.version || undefined,
-      offers: offer,
+      offers: {
+        '@type': 'Offer',
+        price: '7999',
+        priceCurrency: 'INR',
+        availability: 'https://schema.org/InStock',
+        priceValidUntil: '2027-12-31',
+      },
       publisher: { '@id': `${SITE.companyUrl}/#organization` },
       url: `${SITE.url}/desktop`,
     },
     {
       '@type': 'SoftwareApplication',
-      name: 'Nextora Mini POS for Android',
+      name: 'Nextora POS Mobile',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Android 8.0 and above',
       description: ANDROID.summary,
       softwareVersion: RELEASES.android.version || undefined,
-      offers: offer,
+      offers: {
+        '@type': 'Offer',
+        price: '5999',
+        priceCurrency: 'INR',
+        availability: 'https://schema.org/InStock',
+        priceValidUntil: '2027-12-31',
+      },
       publisher: { '@id': `${SITE.companyUrl}/#organization` },
       url: `${SITE.url}/android`,
     },
@@ -177,7 +188,7 @@ export function injectSEO() {
   if (path === '/' || path === '/faq') ld.push(faqLd());
   if (path !== '/') {
     const parts = path.split('/').filter(Boolean);
-    const labels = ['Nextora Mini POS', ...parts.map((p) => p.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))];
+    const labels = ['Nextora POS', ...parts.map((p) => p.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))];
     ld.push(crumbsLd(labels));
   }
   const s = d.createElement('script');

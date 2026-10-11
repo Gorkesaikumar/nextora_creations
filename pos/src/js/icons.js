@@ -12,6 +12,7 @@ export const ICONS = {
   key: I('<circle cx="8" cy="15" r="4.5"/><path d="M11.1 11.9 20 3"/><path d="m16 7 3 3"/><path d="m13.5 9.5 2 2"/>'),
   update: I('<path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/>'),
   check: I('<path d="M20 6 9 17l-5-5"/>'),
+  x: I('<path d="M18 6 6 18"/><path d="m6 6 12 12"/>'),
   wifi: I('<path d="M2 2l20 20"/><path d="M16.7 11.3a7 7 0 0 0-9.4 0"/><path d="M19.5 8.5a11 11 0 0 0-3-1.9"/><path d="M12 19h.01"/>'),
   cloud: I('<path d="M17.5 19a4.5 4.5 0 0 0 .4-9A6 6 0 0 0 6.2 8.6 4.5 4.5 0 0 0 7 17.5h10.5z"/>'),
   search: I('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>'),

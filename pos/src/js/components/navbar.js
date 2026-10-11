@@ -4,7 +4,8 @@ import { SITE } from '../../data/site.js';
 const LINKS = [
   { href: '/features', label: 'Features' },
   { href: '/desktop', label: 'Desktop' },
-  { href: '/android', label: 'Android' },
+  { href: '/android', label: 'Mobile' },
+  { href: 'https://owner.nextoracreations.co.in', label: 'Cloud Analytics', external: true },
   { href: '/pricing', label: 'Pricing' },
   { href: '/support', label: 'Support' },
 ];
@@ -19,6 +20,7 @@ function currentPath() {
 function isActive(href) {
   const p = currentPath();
   if (href === '/') return p === '/';
+  if (href.startsWith('http')) return false;
   return p === href || p.startsWith(href + '/');
 }
 
@@ -31,21 +33,24 @@ export function renderNavbar() {
   mount.innerHTML = `
   <header class="nav ${night ? 'nav--night' : ''}" data-nav>
     <div class="container nav__inner">
-      <a class="nav__logo" href="/" aria-label="Nextora Mini POS home">
-        <img src="/brand/logo.png" alt="" width="34" height="34">
-        <span><b>Nextora</b> Mini POS</span>
+      <a class="nav__logo" href="/" aria-label="Nextora POS home">
+        <img src="/brand/logo.png" srcset="/brand/logo.png 1x, /brand/logo-512.png 2x" alt="Nextora Logo" width="36" height="36">
+        <div class="nav__brand-text">
+          <span class="nav__brand-title">Nextora POS</span>
+          <span class="nav__brand-sub">Restaurant Billing</span>
+        </div>
       </a>
       <nav class="nav__links" aria-label="Primary">
         ${LINKS.map(
           (l) =>
             `<a class="nav__link ${isActive(l.href) ? 'is-active' : ''}" href="${l.href}" ${
-              isActive(l.href) ? 'aria-current="page"' : ''
-            }>${l.label}</a>`
+              l.external ? 'target="_blank" rel="noopener noreferrer"' : ''
+            } ${isActive(l.href) ? 'aria-current="page"' : ''}>${l.label}</a>`
         ).join('')}
       </nav>
       <div class="nav__cta">
         <a class="btn btn--sm btn--ghost" href="/download">Download</a>
-        <a class="btn btn--sm btn--primary" href="/pricing" data-track="hero_get_pos">Get Nextora POS</a>
+        <a class="btn btn--sm btn--primary" href="/pricing" data-track="hero_get_pos">View Pricing</a>
         <button class="nav__burger" aria-expanded="false" aria-controls="mnav" aria-label="Open menu">
           <span></span><span></span><span></span>
         </button>
@@ -55,12 +60,14 @@ export function renderNavbar() {
   <div class="mnav" id="mnav" aria-hidden="true">
     ${LINKS.map(
       (l) =>
-        `<a href="${l.href}" ${isActive(l.href) ? 'aria-current="page"' : ''}>${l.label}<small>0${LINKS.indexOf(l) + 1}</small></a>`
+        `<a href="${l.href}" ${l.external ? 'target="_blank" rel="noopener noreferrer"' : ''} ${
+          isActive(l.href) ? 'aria-current="page"' : ''
+        }>${l.label}<small>0${LINKS.indexOf(l) + 1}</small></a>`
     ).join('')}
     <a href="/download">Download<small>${String(LINKS.length + 1).padStart(2, '0')}</small></a>
     <a href="/contact">Contact<small>${String(LINKS.length + 2).padStart(2, '0')}</small></a>
     <div class="mnav__foot">
-      <a class="btn btn--primary" href="/pricing" data-track="hero_get_pos">Get Nextora POS</a>
+      <a class="btn btn--primary" href="/pricing" data-track="hero_get_pos">View Pricing</a>
       <p class="mnav__meta">${SITE.companyPos} <a href="${SITE.companyUrl}" rel="noopener" style="color:var(--accent-ink)">nextoracreations.co.in</a></p>
     </div>
   </div>`;

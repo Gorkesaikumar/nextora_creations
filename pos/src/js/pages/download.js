@@ -9,8 +9,8 @@ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function renderReleaseCard(key) {
   const r = RELEASES[key];
   if (!r) return '';
-  const name = key === 'desktop' ? 'Nextora Mini POS for Windows' : 'Nextora Mini POS for Android';
-  const platform = key === 'desktop' ? 'Windows 10+ (64-bit)' : 'Android 8.0+';
+  const name = key === 'desktop' ? 'Nextora POS for Windows' : 'Nextora POS Mobile (Android)';
+  const platform = key === 'desktop' ? 'Windows 10 / 11 (64-bit)' : 'Android 8.0+';
 
   let isAvail = false;
   let badgeText = 'Coming soon';
