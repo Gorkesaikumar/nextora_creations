@@ -4,8 +4,9 @@ import { SITE, DESKTOP, ANDROID, FAQS, RELEASES } from '../../data/site.js';
 
 const pageSeo = {
   '/': {
-    title: 'Nextora POS | Offline-First Restaurant Billing Software',
-    description: SITE.description,
+    title: 'Restaurant Billing Software & POS System | Nextora POS',
+    description:
+      'Nextora POS restaurant billing software for Windows and Android: offline billing, inventory management, KOT workflows and thermal receipt printing. Explore features and request a demo.',
   },
   '/desktop': {
     title: 'Nextora POS Desktop — Offline Restaurant Billing & Live KDS | Nextora POS',
@@ -53,6 +54,8 @@ const pageSeo = {
 };
 
 const UNINDEXED = new Set(['/privacy', '/terms', '/license']);
+/* No JSON-LD / no SEO injection at all on utility pages */
+const NO_LD = new Set([...UNINDEXED, '/404', '/reviewer']);
 
 function orgLd() {
   return {
@@ -125,6 +128,7 @@ function appLd() {
 function faqLd() {
   return {
     '@type': 'FAQPage',
+    '@id': `${SITE.url}/#faq`,
     mainEntity: FAQS.map((f) => ({
       '@type': 'Question',
       name: f.q,
@@ -133,14 +137,16 @@ function faqLd() {
   };
 }
 
-function crumbsLd(labels) {
+/* Breadcrumb item URLs must be walkable routes built from the real path —
+   e.g. /support/billing → /support, NOT the label-joined /support-billing. */
+function crumbsLd(parts, labels) {
   return {
     '@type': 'BreadcrumbList',
     itemListElement: labels.map((name, i) => ({
       '@type': 'ListItem',
       position: i + 1,
       name,
-      item: `${SITE.url}${i === 0 ? '/' : '/' + labels.slice(1, i + 1).join('-').toLowerCase()}`,
+      item: SITE.url + (i === 0 ? '/' : '/' + parts.slice(1, i + 1).join('/')),
     })),
   };
 }
@@ -182,14 +188,16 @@ export function injectSEO() {
   }
   canonical.href = SITE.url + (path === '/' ? '/' : path);
 
-  /* JSON-LD — skip entirely on legal pages */
-  if (UNINDEXED.has(path)) return;
+  /* JSON-LD — skipped on legal/utility pages, and skipped when a static
+     build-stamped script already contains the structured data. */
+  if (NO_LD.has(path)) return;
+  if (d.head.querySelector('script[type="application/ld+json"]')) return;
   const ld = [orgLd(), webSiteLd(), ...appLd()];
   if (path === '/' || path === '/faq') ld.push(faqLd());
   if (path !== '/') {
     const parts = path.split('/').filter(Boolean);
     const labels = ['Nextora POS', ...parts.map((p) => p.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))];
-    ld.push(crumbsLd(labels));
+    ld.push(crumbsLd(parts, labels));
   }
   const s = d.createElement('script');
   s.type = 'application/ld+json';

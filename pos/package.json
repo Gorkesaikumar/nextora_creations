@@ -9,7 +9,9 @@
     "build": "vite build && node scripts/build-meta.mjs",
     "build:silent": "vite build",
     "preview": "vite preview",
-    "og": "node scripts/build-meta.mjs"
+    "og": "node scripts/build-meta.mjs",
+    "test": "npm run build && node scripts/test-seo.mjs",
+    "test:seo": "node scripts/test-seo.mjs"
   },
   "engines": {
     "node": ">=22.15.0"
