@@ -70,7 +70,7 @@ export const PRICING = {
       'Nextora Owner Cloud Analytics remote sync — Desktop only',
     ],
     ctaText: 'Get Nextora POS Mobile',
-    ctaHref: '/pricing#request',
+    ctaHref: '/contact',
   },
   desktop: {
     id: 'desktop',
@@ -103,7 +103,7 @@ export const PRICING = {
     addonNote: 'Optional add-on: Thermal receipt printing (+₹2,000 via USB/Serial)',
     exclusions: [],
     ctaText: 'Get Nextora POS Desktop',
-    ctaHref: '/pricing#request',
+    ctaHref: '/contact',
   },
 };
 
